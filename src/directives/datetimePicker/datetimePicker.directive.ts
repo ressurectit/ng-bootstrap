@@ -90,7 +90,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     }
     public get value(): any
     {
-        return this.pickerObj.date();
+        return this.pickerObj.date() || null;
     }
     
     //######################### private properties #########################
@@ -167,7 +167,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
                 this.linkWith.pickerObj.maxDate(event.date);
             }
             
-            this._pickerChangedSubject.next(event.date);
+            this._pickerChangedSubject.next(event.date || null);
         });
         
         if(this.linkWith)
