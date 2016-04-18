@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, Optional} from 'angular2/core';
+import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, Optional, EventEmitter, Output} from 'angular2/core';
 import {DatetimePickerGlobalizationService} from './datetimePickerGlobalization.service';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
@@ -70,6 +70,14 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
             this.pickerObj.maxDate(value);
         }
     }
+    
+    //######################### public properties - outputs #########################
+    
+    /**
+     * Output event that is triggered when value of picker has changed
+     */
+    @Output()
+    public dateChange: EventEmitter<moment.Moment> = new EventEmitter();
     
     //######################### public properties #########################
     
@@ -168,6 +176,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
             }
             
             this._pickerChangedSubject.next(event.date || null);
+            this.dateChange.emit(event.date || null);
         });
         
         if(this.linkWith)
