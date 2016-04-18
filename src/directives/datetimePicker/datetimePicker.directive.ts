@@ -151,7 +151,6 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         
         this.selector.datetimepicker(
         {
-            format: this.format,
             locale: this.locale
         });
     }
@@ -163,6 +162,11 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      */
     public ngOnInit()
     {
+        if(this.format)
+        {
+            this.pickerObj.format(this.format);
+        }
+        
         if(this.linkWith)
         {
             this.pickerObj.useCurrent(false);

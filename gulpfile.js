@@ -27,6 +27,13 @@ gulp.task("copy-tsmoment", function()
         .pipe(gulp.dest("tsTypings"));
 });
 
+gulp.task("copy-tshtml2canvas", function()
+{
+    return gulp.src("node_modules/ng2-tstypings/tsTypings/tshtml2canvas.d.ts")
+        .pipe(logCopied())
+        .pipe(gulp.dest("tsTypings"));
+});
+
 gulp.task("copy-moment.node", function()
 {
     return gulp.src("node_modules/ng2-tstypings/tsTypings/moment.node.d.ts")
@@ -52,6 +59,7 @@ gulp.task("copy-bootstrap.v3.datetimepicker", function()
 gulp.task("copy-tstypings", 
           ["copy-tsjquery",
            "copy-tsmoment",
+           "copy-tshtml2canvas",
            "copy-moment.node",
            "copy-bootstrap-select",
            "copy-bootstrap.v3.datetimepicker"], 

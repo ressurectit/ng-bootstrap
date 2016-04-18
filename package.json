@@ -1,6 +1,6 @@
 {
     "name": "ng2-bootstrap-components",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Angular 2 module wrapping bootstrap components",
     "scripts":
     {
@@ -14,6 +14,7 @@
         "tsc:debug": "tsc --sourceMap",
         "prepublish": "npm run bundle:package",
         "postpublish": "npm run clean",
+        "republish": "npm unpublish --force && npm publish",
         "bundle": "tsc --outFile bundle/ng2-bootstrap-components.dev.js",
         "bundle:update": "nab bundle/ng2-bootstrap-components.dev.js && uglifyjs -o bundle/ng2-bootstrap-components.min.js -- bundle/ng2-bootstrap-components.dev.js",
         "bundle:package": "npm run clean && npm run build && npm run bundle && npm run bundle:update",
@@ -41,7 +42,7 @@
         "moment": "~2.12.0",
         "bootstrap-select": "~1.10.0",
         "eonasdan-bootstrap-datetimepicker": "^4.15.35",
-        "ng2-tstypings": "1.0.0"
+        "ng2-tstypings": "1.0.2"
     },
     "devDependencies":
     {
