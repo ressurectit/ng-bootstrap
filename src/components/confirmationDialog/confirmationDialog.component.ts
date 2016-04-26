@@ -71,26 +71,19 @@ export class ConfirmationDialogComponent
      */
     @Input()
     public confirmationTitle: string = "";
-
-    //######################### public properties - outputs #########################
-
-    /**
-     * Occurs when confirmation is changed, passing result
-     */
-    @Output()
-    public confirmationChange: EventEmitter<boolean> = new EventEmitter();
-
-    //######################### public properties #########################
-
+    
     /**
      * Gets or sets indication whether is confirmation dialog visible
      */
+    @Input()
     public set visible(visible: boolean)
     {
         if(visible == this._visible)
         {
             return;
         }
+        
+        this.visibleChange.emit(visible);
         
         if(!visible)
         {
@@ -101,8 +94,21 @@ export class ConfirmationDialogComponent
     {
         return this._visible;
     }
+
+    //######################### public properties - outputs #########################
+
+    /**
+     * Occurs when confirmation is changed, passing result
+     */
+    @Output()
+    public confirmationChange: EventEmitter<boolean> = new EventEmitter();
     
-    
+    /**
+     * Occurs when visiblity of dialog changes
+     */
+    @Output()
+    public visibleChange: EventEmitter<boolean> = new EventEmitter();
+
     //######################### constructor #########################
     constructor()
     {
@@ -117,6 +123,7 @@ export class ConfirmationDialogComponent
     private _confirm()
     {
         this._visible = false;
+        this.visibleChange.emit(false);
         this.confirmationChange.emit(true);
     }
 }
