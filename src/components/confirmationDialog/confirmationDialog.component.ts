@@ -30,7 +30,8 @@ import $ from 'tsjquery';
             </button>
         </div>
     </dialog>`,
-    directives: [DialogComponent]
+    directives: [DialogComponent],
+    exportAs: "confirmationDialog"
 })
 export class ConfirmationDialogComponent
 {
@@ -45,6 +46,11 @@ export class ConfirmationDialogComponent
      * Id of confirmation dialog
      */
     private _id: string = "";
+    
+    /**
+     * Data that can be passed to confirmation
+     */
+    private _data: any = null;
 
     //######################### public properties - inputs #########################
 
@@ -72,10 +78,25 @@ export class ConfirmationDialogComponent
     @Input()
     public confirmationTitle: string = "";
     
+    //######################### public properties - outputs #########################
+
+    /**
+     * Occurs when user confirmed dialog
+     */
+    @Output()
+    public confirmed: EventEmitter<any> = new EventEmitter();
+    
+    /**
+     * Occurs when user canceled confirmation
+     */
+    @Output()
+    public canceled: EventEmitter<any> = new EventEmitter();
+    
+    //######################### public properties #########################
+    
     /**
      * Gets or sets indication whether is confirmation dialog visible
      */
-    @Input()
     public set visible(visible: boolean)
     {
         if(visible == this._visible)
@@ -83,36 +104,33 @@ export class ConfirmationDialogComponent
             return;
         }
         
-        this.visibleChange.emit(visible);
-        
         if(!visible)
         {
-            this.confirmationChange.emit(false);
+            this.canceled.emit(this._data);
+            this._data = null;
         }
     }
     public get visible(): boolean
     {
         return this._visible;
     }
-
-    //######################### public properties - outputs #########################
-
-    /**
-     * Occurs when confirmation is changed, passing result
-     */
-    @Output()
-    public confirmationChange: EventEmitter<boolean> = new EventEmitter();
     
-    /**
-     * Occurs when visiblity of dialog changes
-     */
-    @Output()
-    public visibleChange: EventEmitter<boolean> = new EventEmitter();
-
     //######################### constructor #########################
     constructor()
     {
         this._id = utils.common.generateId(12);
+    }
+    
+    //######################### public methods #########################
+    
+    /**
+     * Shows confirmation dialog and stores data that are passed to confirmed event
+     * @param  {any} data
+     */
+    public showConfirmation(data: any)
+    {
+        this._visible = true;
+        this._data = data;
     }
     
     //######################### private methods #########################
@@ -123,7 +141,7 @@ export class ConfirmationDialogComponent
     private _confirm()
     {
         this._visible = false;
-        this.visibleChange.emit(false);
-        this.confirmationChange.emit(true);
+        this.confirmed.emit(this._data);
+        this._data = null;
     }
 }
