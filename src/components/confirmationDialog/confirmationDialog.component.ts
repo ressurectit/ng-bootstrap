@@ -104,6 +104,8 @@ export class ConfirmationDialogComponent
             return;
         }
         
+        this._visible = visible;
+        
         if(!visible)
         {
             this.canceled.emit(this._data);
