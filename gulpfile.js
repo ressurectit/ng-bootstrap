@@ -1,4 +1,3 @@
-/// <binding ProjectOpened='copy-binaries' />
 var gulp = require("gulp"),
     through2 = require('through2');
     
