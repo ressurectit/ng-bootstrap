@@ -7,7 +7,7 @@ import $ from 'tsjquery';
  */
 @Component(
 {
-    selector: "dialog",
+    selector: "modal-dialog",
     template:
    `<div class="modal fade" [id]="dialogId" tabindex="-1" role="dialog">
         <div class="modal-dialog {{dialogCss}}" role="document">
