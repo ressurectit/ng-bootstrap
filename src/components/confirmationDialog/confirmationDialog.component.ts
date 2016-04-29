@@ -10,7 +10,7 @@ import $ from 'tsjquery';
 {
     selector: "confirmation-dialog",
     template:
-   `<dialog [dialogId]="_id"
+   `<modal-dialog [dialogId]="_id"
             [(visible)]="visible"
             [dialogTitle]="confirmationTitle"
             dialogCss="modal-sm">
@@ -29,7 +29,7 @@ import $ from 'tsjquery';
                 <span>{{dialogConfirmText}}</span>
             </button>
         </div>
-    </dialog>`,
+    </modal-dialog>`,
     directives: [DialogComponent],
     exportAs: "confirmationDialog"
 })
