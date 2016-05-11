@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, Optional, EventEmitter, Output} from 'angular2/core';
+import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, Optional, EventEmitter, Output} from '@angular/core';
 import {DatetimePickerGlobalizationService} from './datetimePickerGlobalization.service';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';

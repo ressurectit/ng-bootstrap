@@ -1,6 +1,6 @@
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
-import {forwardRef, Provider, Directive, OnDestroy} from 'angular2/core';
-import {isBlank} from 'angular2/src/facade/lang';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {forwardRef, Provider, Directive, OnDestroy} from '@angular/core';
+import {isBlank} from '@angular/core/src/facade/lang';
 import {BootstrapSelectDirective} from './bootstrapSelect.directive';
 import {Subscription} from 'rxjs/Subscription';
 

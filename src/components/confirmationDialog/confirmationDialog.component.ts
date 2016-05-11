@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {DialogComponent} from '../dialog';
-import utils from 'ng2-common/utils';
+import {Utils} from '@ng2/common';
 import $ from 'tsjquery';
 
 /**
@@ -120,7 +120,7 @@ export class ConfirmationDialogComponent
     //######################### constructor #########################
     constructor()
     {
-        this._id = utils.common.generateId(12);
+        this._id = Utils.common.generateId(12);
     }
     
     //######################### public methods #########################

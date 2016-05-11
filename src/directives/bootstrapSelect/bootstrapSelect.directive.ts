@@ -4,8 +4,8 @@ import {Directive,
         ElementRef,
         ChangeDetectorRef,
         IterableDiffers,
-        IterableDiffer} from 'angular2/core';
-import {isPresent, isArray, isBlank} from 'angular2/src/facade/lang';
+        IterableDiffer} from '@angular/core';
+import {isPresent, isArray, isBlank} from '@angular/core/src/facade/lang';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import $ from 'tsjquery';

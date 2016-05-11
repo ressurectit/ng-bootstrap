@@ -1,5 +1,5 @@
-import {Directive, Provider, forwardRef, OnDestroy} from 'angular2/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from 'angular2/common';
+import {Directive, Provider, forwardRef, OnDestroy} from '@angular/core';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
 import {DatetimePickerDirective} from './datetimePicker.directive';
 import {Subscription} from 'rxjs/Subscription';
 

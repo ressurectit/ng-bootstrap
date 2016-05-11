@@ -1,5 +1,5 @@
-import {Component, Input, Output, OnInit, AfterViewInit, EventEmitter} from 'angular2/core';
-import {isBlank} from 'angular2/src/facade/lang';
+import {Component, Input, Output, OnInit, AfterViewInit, EventEmitter} from '@angular/core';
+import {isBlank} from '@angular/core/src/facade/lang';
 import $ from 'tsjquery';
 
 /**
