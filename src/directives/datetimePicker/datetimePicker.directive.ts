@@ -25,7 +25,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     /**
      * Subject that is used for emitting changed values
      */
-    private _pickerChangedSubject: Subject<moment.Moment> = new Subject();
+    private _pickerChangedSubject: Subject<moment.Moment> = new Subject<moment.Moment>();
     
     //######################### public properties - input #########################
 
@@ -77,7 +77,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      * Output event that is triggered when value of picker has changed
      */
     @Output()
-    public dateChange: EventEmitter<moment.Moment> = new EventEmitter();
+    public dateChange: EventEmitter<moment.Moment> = new EventEmitter<moment.Moment>();
     
     //######################### public properties #########################
     

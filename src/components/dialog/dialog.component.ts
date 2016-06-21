@@ -95,7 +95,7 @@ export class DialogComponent implements OnInit, AfterViewInit
      * Occurs when visiblity of dialog changes
      */
     @Output()
-    public visibleChange: EventEmitter<boolean> = new EventEmitter();
+    public visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     
     //######################### private properties #########################
     
