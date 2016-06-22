@@ -59,6 +59,21 @@ export class DialogComponent implements OnInit, AfterViewInit
      */
     @Input()
     public dialogCss: string = "";
+
+    /**
+     * Bootstrap modal dialog backdrop property wrapper.
+     * If true, then includes a modal-backdrop element. 
+     * Alternatively, specify 'static' for a backdrop which doesn't close the modal on click.
+     */
+    @Input()
+    public backdrop: boolean | string = true;
+
+    /**
+     * Bootstrap modal dialog keyboard property wrapper.
+     * If true, closes the modal when escape key is pressed.
+     */
+    @Input()
+    public keyboard: boolean = true;
     
     /**
      * Gets or sets indication whether is dialog visible
@@ -73,13 +88,18 @@ export class DialogComponent implements OnInit, AfterViewInit
         
         let dialog = $(this.dialogSelector); 
         
+        let options: ModalOptions = {
+            backdrop: this.backdrop,
+            keyboard: this.keyboard
+        };
+
         if(visible)
         {
-            dialog.modal("show");
+            dialog.modal(options).modal("show");
         }
         else
         {
-            dialog.modal("hide");
+            dialog.modal(options).modal("hide");
         }
         
         this._visible = visible;
