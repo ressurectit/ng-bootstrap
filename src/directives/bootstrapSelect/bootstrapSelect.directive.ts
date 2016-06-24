@@ -1,13 +1,19 @@
 import {Directive,
         Input,
+        ContentChildren,
+        QueryList,
         AfterViewChecked,
+        AfterContentInit,
         ElementRef,
+        OnDestroy,
         ChangeDetectorRef,
         IterableDiffers,
         IterableDiffer} from '@angular/core';
 import {isPresent, isArray, isBlank} from '@angular/core/src/facade/lang';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
+import {BootstrapSelectOptionDirective} from './bootstrapSelectOption.directive';
 import $ from 'tsjquery';
 
 /**
@@ -17,7 +23,7 @@ import $ from 'tsjquery';
 {
     selector: "select.selectpicker"
 })
-export class BootstrapSelectDirective implements AfterViewChecked
+export class BootstrapSelectDirective implements AfterViewChecked, AfterContentInit, OnDestroy
 {
     //######################### private fields #########################
 
@@ -40,6 +46,11 @@ export class BootstrapSelectDirective implements AfterViewChecked
      * Currently set value
      */
     private _value: string;
+
+    /**
+     * Subscription for changes of content options
+     */
+    private _contentOptionsSubscription: Subscription;
 
     //######################### public properties - inputs #########################
 
@@ -73,22 +84,58 @@ export class BootstrapSelectDirective implements AfterViewChecked
     }
     
     /**
-     * Gets or sets value of datetime picker, any picker supported value
+     * Gets or sets value of select picker, any picker supported value
      */
     public set value(val: any)
     {
         this._value = val;
+
+        if(isBlank(val))
+        {
+            this.selector.selectpicker("val", val);
+
+            return;
+        }
+
+        if(isArray(val))
+        {
+            val = val.map(value => this._fromValue(value));
+        }
+        else
+        {
+            val = this._fromValue(val);
+        }
+
         this.selector.selectpicker("val", val);
     }
     public get value(): any
     {
-        return this.selector.selectpicker("val");
+        return this._value;
     }
+
+    /**
+     * Array of options that are in this select
+     */
+    @ContentChildren(BootstrapSelectOptionDirective)
+    public contentOptions: QueryList<BootstrapSelectOptionDirective>;
     
     //######################### private properties #########################
     
     /**
-     * Gets jQuery object for datetime picker
+     * Array of options that are as content in select
+     */
+    private get options(): BootstrapSelectOptionDirective[]
+    {
+        if(isBlank(this.contentOptions))
+        {
+            return [];
+        }
+
+        return this.contentOptions.toArray();;
+    };
+
+    /**
+     * Gets jQuery object for select picker
      */
     private get selector(): JQuery
     {
@@ -100,12 +147,22 @@ export class BootstrapSelectDirective implements AfterViewChecked
                 private _changeDetector: ChangeDetectorRef,
                 private _iterableDiffers: IterableDiffers)
     {
-
         this.selector.selectpicker();
         this.selector.on('changed.bs.select', () =>
         {
-            this.value = this.selector.selectpicker("val");
-            this._selectChangedSubject.next(this.value);
+            let val = this.selector.selectpicker("val");
+
+            if(isArray(val))
+            {
+                val = val.map(value => this._toValue(value));
+            }
+            else
+            {
+                val = this._toValue(val);
+            }
+
+            this._value = val;
+            this._selectChangedSubject.next(this._value);
         });
     }
 
@@ -126,5 +183,61 @@ export class BootstrapSelectDirective implements AfterViewChecked
                 this.value = this._value;
             }
         }
+    }
+
+    //######################### public methods - implementation of AfterContentInit #########################
+    
+    /**
+     * Called when content was initialized
+     */
+    public ngAfterContentInit()
+    {
+        this._contentOptionsSubscription = this.contentOptions.changes.subscribe(() =>
+        {
+            this.value = this._value;
+        });
+    }
+
+    //######################### public methods - implementation of OnDestroy #########################
+    
+    /**
+     * Called when component is destroyed
+     */
+    public ngOnDestroy()
+    {
+        this._contentOptionsSubscription.unsubscribe();
+        this._contentOptionsSubscription = null;
+    }
+
+    //######################### private methods #########################
+    
+    /**
+     * Convert bootstrap select value to real value
+     */
+    private _toValue(itm: string): any
+    {
+        let tmp = this.options.filter(opt => opt.id == itm);
+
+        if(tmp.length > 0)
+        {
+            return tmp[0].value;
+        }
+
+        return itm;
+    }
+
+    /**
+     * Converts real value to bootstrap select value
+     */
+    private _fromValue(val: any): string
+    {
+        let tmp = this.options.filter(opt => opt.isEqual(val));
+
+        if(tmp.length > 0)
+        {
+            return tmp[0].id;
+        }
+
+        return val;
     }
 }
