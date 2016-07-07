@@ -1,4 +1,4 @@
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/common';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {forwardRef, Provider, Directive, OnDestroy} from '@angular/core';
 import {isBlank} from '@angular/core/src/facade/lang';
 import {BootstrapSelectDirective} from './bootstrapSelect.directive';
