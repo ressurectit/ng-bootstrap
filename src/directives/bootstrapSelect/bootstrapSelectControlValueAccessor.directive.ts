@@ -9,7 +9,7 @@ const BOOTSTRAP_SELECT_VALUE_ACCESSOR = new Provider(NG_VALUE_ACCESSOR, {useExis
 
 @Directive(
 {
-    selector: 'select.selectpicker[ngControl],select.selectpicker[ngFormControl],select.selectpicker[ngModel]',
+    selector: 'select.selectpicker[formControlName],select.selectpicker[formControl],select.selectpicker[ngModel]',
     providers: [BOOTSTRAP_SELECT_VALUE_ACCESSOR]
 })
 export class BootstrapSelectControlValueAccessor implements ControlValueAccessor, OnDestroy

@@ -13,7 +13,7 @@ const DATETIME_PICKER_VALUE_ACCESSOR = new Provider(NG_VALUE_ACCESSOR, {useExist
  */
 @Directive(
 {
-    selector: 'input.datetimepicker[ngControl],input.datetimepicker[ngFormControl],input.datetimepicker[ngModel]',
+    selector: 'input.datetimepicker[formControlName],input.datetimepicker[formControl],input.datetimepicker[ngModel]',
     providers: [DATETIME_PICKER_VALUE_ACCESSOR],
     host: 
     {
