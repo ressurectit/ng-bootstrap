@@ -11,7 +11,7 @@ import $ from 'tsjquery';
 @Directive(
 {
     selector: 'input.datetimepicker',
-    exportAs: "picker"
+    exportAs: "dateTimePicker"
 })
 export class DatetimePickerDirective implements OnInit, OnDestroy
 {
@@ -187,7 +187,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         {
             this.linkWith.selector.on("dp.change", event =>
             {
-                this.pickerObj.minDate(event.data);
+                this.pickerObj.minDate(event.date);
             });
         }
     }
