@@ -170,6 +170,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         if(this.linkWith)
         {
             this.pickerObj.useCurrent(false);
+            this.linkWith.pickerObj.useCurrent(false);
         }               
         
         this.selector.on("dp.change", event =>
