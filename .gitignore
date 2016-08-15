@@ -3,6 +3,7 @@
 /tsTypings
 /directives
 /components
+/modules
 *.d.ts
 *.js
 *.map
