@@ -1,5 +1,5 @@
-import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, Optional, EventEmitter, Output} from '@angular/core';
-import {DatetimePickerGlobalizationService} from './datetimePickerGlobalization.service';
+import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, EventEmitter, Output} from '@angular/core';
+import {GlobalizationService} from '@ng2/common';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
@@ -26,7 +26,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      * Subject that is used for emitting changed values
      */
     private _pickerChangedSubject: Subject<moment.Moment> = new Subject<moment.Moment>();
-    
+
     //######################### public properties - input #########################
 
     /**
@@ -122,23 +122,20 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     //######################### constructor #########################
     constructor(private _element: ElementRef,
                 @Attribute("type") type: string,
-                @Optional() datetimepickerGlobalizationService: DatetimePickerGlobalizationService)
+                globalizationService: GlobalizationService)
     {
-        if(datetimepickerGlobalizationService)
+        if(!(globalizationService instanceof GlobalizationService))
         {
-            if(!(datetimepickerGlobalizationService instanceof DatetimePickerGlobalizationService))
-            {
-                throw new Error("Provided 'DatetimepickerGlobalizationService' is not implementation of 'DatetimepickerGlobalizationService'");
-            }
-            
-            this.locale = datetimepickerGlobalizationService.getLocale();
-            
-            this._globalizationSubscription = datetimepickerGlobalizationService.getLocaleChange().subscribe(locale => 
-            {
-                this.locale = locale;
-                this.pickerObj.locale(locale);
-            })
+            throw new Error("Provided 'DatetimepickerGlobalizationService' is not implementation of 'DatetimepickerGlobalizationService'");
         }
+        
+        this.locale = globalizationService.getLocale();
+        
+        this._globalizationSubscription = globalizationService.getLocaleChange().subscribe(locale => 
+        {
+            this.locale = locale;
+            this.pickerObj.locale(locale);
+        })
         
         if(type == "datetime")
         {

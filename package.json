@@ -1,6 +1,6 @@
 {
     "name": "@ng2/bootstrap-components",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "description": "Angular 2 module wrapping bootstrap components",
     "main": "index.js",
     "typings": "index.d.ts",
@@ -41,12 +41,15 @@
         "reflect-metadata": "0.1.3",
         "zone.js": "0.6.12",
         "rxjs": "5.0.0-beta.6",
+        "@ng2/common": "~1.3.6"
+    },
+    "peerDependencies":
+    {
         "bootstrap": "~3.3.6",
         "jquery": "~2.2.1",
         "moment": "~2.12.0",
         "bootstrap-select": "~1.10.0",
-        "eonasdan-bootstrap-datetimepicker": "^4.15.35",
-        "@ng2/common": "~1.3.0"
+        "eonasdan-bootstrap-datetimepicker": "^4.15.35"
     },
     "devDependencies":
     {

@@ -4,6 +4,7 @@ import {DialogComponent} from '../components/dialog';
 import {ConfirmationDialogComponent} from '../components/confirmationDialog';
 import {DATETIME_PICKER_DIRECTIVES} from '../directives/datetimePicker';
 import {BOOTSTRAP_SELECT_DIRECTIVES} from '../directives/bootstrapSelect';
+import {BootstrapPopoverDirective, BootstrapTooltipDirective} from '../directives/misc';
 
 /**
  * Module for bootstrap components
@@ -11,8 +12,8 @@ import {BOOTSTRAP_SELECT_DIRECTIVES} from '../directives/bootstrapSelect';
 @NgModule(
 {
     imports: [CommonModule],
-    declarations: [DialogComponent, ConfirmationDialogComponent, DATETIME_PICKER_DIRECTIVES, BOOTSTRAP_SELECT_DIRECTIVES],
-    exports: [DialogComponent, ConfirmationDialogComponent, DATETIME_PICKER_DIRECTIVES, BOOTSTRAP_SELECT_DIRECTIVES]
+    declarations: [DialogComponent, ConfirmationDialogComponent, DATETIME_PICKER_DIRECTIVES, BOOTSTRAP_SELECT_DIRECTIVES, BootstrapPopoverDirective, BootstrapTooltipDirective],
+    exports: [DialogComponent, ConfirmationDialogComponent, DATETIME_PICKER_DIRECTIVES, BOOTSTRAP_SELECT_DIRECTIVES, BootstrapPopoverDirective, BootstrapTooltipDirective]
 })
 export class BootstrapModule
 {
