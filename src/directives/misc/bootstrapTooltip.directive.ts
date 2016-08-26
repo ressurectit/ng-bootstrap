@@ -51,6 +51,12 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
     {
         return this._text;
     }
+
+    /**
+     * Indication whether tooltip allows html content
+     */
+    @Input()
+    public htmlTooltip: boolean = false;
     
     //######################### constructor #########################
     constructor(element: ElementRef)
@@ -97,6 +103,7 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
             {
                 container: 'body',
                 trigger: 'hover',
+                html: this.htmlTooltip,
                 delay: { "show": 250, "hide": 0 }
             });
             
