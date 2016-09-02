@@ -1,5 +1,4 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {DialogComponent} from '../dialog';
 import {Utils} from '@ng2/common';
 import $ from 'tsjquery';
 
@@ -30,7 +29,6 @@ import $ from 'tsjquery';
             </button>
         </div>
     </modal-dialog>`,
-    directives: [DialogComponent],
     exportAs: "confirmationDialog"
 })
 export class ConfirmationDialogComponent

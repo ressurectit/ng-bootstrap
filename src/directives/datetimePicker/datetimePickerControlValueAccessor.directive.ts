@@ -1,4 +1,4 @@
-import {Directive, Provider, forwardRef, OnDestroy} from '@angular/core';
+import {Directive, ExistingProvider, forwardRef, OnDestroy} from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {DatetimePickerDirective} from './datetimePicker.directive';
 import {Subscription} from 'rxjs/Subscription';
@@ -6,7 +6,12 @@ import {Subscription} from 'rxjs/Subscription';
 /**
  * Value accessor provider for datetime picker
  */
-const DATETIME_PICKER_VALUE_ACCESSOR = new Provider(NG_VALUE_ACCESSOR, {useExisting: forwardRef(() => DatetimePickerControlValueAccessor), multi: true});
+const DATETIME_PICKER_VALUE_ACCESSOR: ExistingProvider =
+{
+    provide: NG_VALUE_ACCESSOR, 
+    useExisting: forwardRef(() => DatetimePickerControlValueAccessor), 
+    multi: true
+};
 
 /**
  * Value accessor for getting and setting values for datetimepicker

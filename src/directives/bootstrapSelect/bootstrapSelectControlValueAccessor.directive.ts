@@ -1,11 +1,16 @@
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {forwardRef, Provider, Directive, OnDestroy} from '@angular/core';
+import {forwardRef, ExistingProvider, Directive, OnDestroy} from '@angular/core';
 import {isBlank} from '@angular/core/src/facade/lang';
 import {BootstrapSelectDirective} from './bootstrapSelect.directive';
 import {BootstrapSelectOptionDirective} from './bootstrapSelectOption.directive';
 import {Subscription} from 'rxjs/Subscription';
 
-const BOOTSTRAP_SELECT_VALUE_ACCESSOR = new Provider(NG_VALUE_ACCESSOR, {useExisting: forwardRef(() => BootstrapSelectControlValueAccessor), multi: true});
+const BOOTSTRAP_SELECT_VALUE_ACCESSOR: ExistingProvider =
+{
+    provide: NG_VALUE_ACCESSOR, 
+    useExisting: forwardRef(() => BootstrapSelectControlValueAccessor), 
+    multi: true
+};
 
 @Directive(
 {
