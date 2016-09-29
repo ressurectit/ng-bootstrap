@@ -1,5 +1,5 @@
 import {Directive, ElementRef, AfterViewInit, OnDestroy, Input} from '@angular/core';
-import $ from 'tsjquery';
+import * as $ from 'jquery';
 
 /**
  * Directive applies (bootstrap) jQuery popover on all elements which have popover attribute specified.

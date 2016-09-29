@@ -14,7 +14,7 @@ import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
 import {BootstrapSelectOptionDirective} from './bootstrapSelectOption.directive';
-import $ from 'tsjquery';
+import * as $ from 'jquery';
 
 /**
  * Directive that wraps bootstrap select

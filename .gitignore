@@ -1,11 +1,4 @@
 /node_modules
-/typings
-/tsTypings
-/directives
-/components
-/modules
-*.d.ts
-*.js
-*.map
+/dist
+
 *.log
-!gulpfile.js

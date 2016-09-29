@@ -1,6 +1,6 @@
 import {Component, Input, Output, OnInit, AfterViewInit, EventEmitter} from '@angular/core';
 import {isBlank} from '@angular/core/src/facade/lang';
-import $ from 'tsjquery';
+import * as $ from 'jquery';
 
 /**
  * Bootstrap modal dialog component

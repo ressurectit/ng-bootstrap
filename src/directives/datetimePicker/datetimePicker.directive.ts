@@ -1,9 +1,12 @@
 import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, EventEmitter, Output} from '@angular/core';
 import {GlobalizationService} from '@ng2/common';
+
+import {Datetimepicker} from 'eonasdan-bootstrap-datetimepicker';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
-import $ from 'tsjquery';
+
+import * as $ from 'jquery';
 
 /**
  * Directive that is used for creating date/datetimepicker
@@ -114,7 +117,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     /**
      * Gets object of datetime picker
      */
-    private get pickerObj(): BootstrapV3DatetimePicker.Datetimepicker
+    private get pickerObj(): Datetimepicker
     {
         return this.selector.data("DateTimePicker");
     }
