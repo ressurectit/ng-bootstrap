@@ -19,6 +19,8 @@ module.exports = function(options)
             "bootstrap",
             "bootstrap-select",
             "eonasdan-bootstrap-datetimepicker",
+            "handlebars",
+            "typeahead",
             /^@ng2\/.*$/,
             /^@angular\/.*$/,
             /^rxjs\/.*$/

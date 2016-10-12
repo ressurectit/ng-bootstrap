@@ -20,7 +20,9 @@
             "bootstrap",
             "moment",
             "bootstrap-select",
-            "eonasdan-bootstrap-datetimepicker"
+            "eonasdan-bootstrap-datetimepicker",
+            "typeahead",
+            "handlebars"
         ],
         "typeRoots": 
         [
