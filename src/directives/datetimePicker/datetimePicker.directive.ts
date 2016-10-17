@@ -206,4 +206,14 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
             this._globalizationSubscription = null;
         }
     }
+
+    //######################### public methods #########################
+
+    /**
+     * Toggles visibility of date time picker
+     */
+    public toggle()
+    {
+        this.pickerObj.toggle();
+    }
 }
