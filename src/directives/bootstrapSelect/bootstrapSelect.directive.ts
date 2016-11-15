@@ -9,7 +9,8 @@ import {Directive,
         ChangeDetectorRef,
         IterableDiffers,
         IterableDiffer} from '@angular/core';
-import {isPresent, isArray, isBlank} from '@angular/core/src/facade/lang';
+import {isPresent, isBlank} from '@angular/core/src/facade/lang';
+import {isArray} from '@ng2/common';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
