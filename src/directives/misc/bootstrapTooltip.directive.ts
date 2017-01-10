@@ -57,6 +57,14 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
      */
     @Input()
     public htmlTooltip: boolean = false;
+
+    /**
+     * Bootstrap tooltip trigger (click | hover | focus | manual)
+     * How tooltip is triggered. You may pass multiple triggers; separate them with a space. 
+     * Manual cannot be combined with any other trigger.
+     */
+    @Input()
+    public trigger: string = "hover";
     
     //######################### constructor #########################
     constructor(element: ElementRef)
@@ -102,7 +110,7 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
             this._jqueryElement.tooltip(
             {
                 container: 'body',
-                trigger: 'hover',
+                trigger: this.trigger,
                 html: this.htmlTooltip,
                 delay: { "show": 250, "hide": 0 }
             });
