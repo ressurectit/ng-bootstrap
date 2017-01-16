@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, AfterViewInit, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, OnDestroy, AfterViewInit, EventEmitter} from '@angular/core';
 import {isBlank} from '@angular/core/src/facade/lang';
 import * as $ from 'jquery';
 
@@ -31,7 +31,7 @@ import * as $ from 'jquery';
         </div>
     </div>`
 })
-export class DialogComponent implements OnInit, AfterViewInit
+export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
 {
     //######################### private fields #########################
     
@@ -39,6 +39,11 @@ export class DialogComponent implements OnInit, AfterViewInit
      * Indication whether is dialog visible
      */
     private _visible: boolean = false;
+
+    /**
+     * Backup of enforce focus backup function
+     */
+    private _enforceFocusBackup: () => void;
     
     //######################### public properties - inputs #########################
     
@@ -59,6 +64,12 @@ export class DialogComponent implements OnInit, AfterViewInit
      */
     @Input()
     public dialogCss: string = "";
+
+    /**
+     * Indication that elements in background can be focused
+     */
+    @Input()
+    public backgroundFocus: boolean = false;
 
     /**
      * Bootstrap modal dialog backdrop property wrapper.
@@ -95,10 +106,21 @@ export class DialogComponent implements OnInit, AfterViewInit
 
         if(visible)
         {
+            if(this.backgroundFocus)
+            {
+                this._enforceFocusBackup = $.fn.modal.Constructor.prototype.enforceFocus;
+                $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            }
+
             dialog.modal(options).modal("show");
         }
         else
         {
+            if(this.backgroundFocus)
+            {
+                $.fn.modal.Constructor.prototype.enforceFocus = this._enforceFocusBackup;
+            }
+
             dialog.modal(options).modal("hide");
         }
         
@@ -138,6 +160,16 @@ export class DialogComponent implements OnInit, AfterViewInit
         {
             throw new Error("You must set id of dialog.");
         }
+    }
+
+    //######################### public methods - implementation of OnDestroy #########################
+    
+    /**
+     * Called when component is destroyed
+     */
+    public ngOnDestroy()
+    {
+        this.visible = false;
     }
    
     //######################### public methods - implementation of AfterViewInit #########################
