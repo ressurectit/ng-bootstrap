@@ -2,7 +2,7 @@ import {Directive, ElementRef, OnInit, Input} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
-import {isPresent, isBlank, isJsObject} from '@angular/core/src/facade/lang';
+import {isPresent, isBlank, isJsObject} from '@anglr/common';
 import * as $ from 'jquery';
 import * as Handlebars from 'handlebars';
 

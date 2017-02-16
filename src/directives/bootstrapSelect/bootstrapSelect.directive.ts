@@ -9,8 +9,7 @@ import {Directive,
         ChangeDetectorRef,
         IterableDiffers,
         IterableDiffer} from '@angular/core';
-import {isPresent, isBlank} from '@angular/core/src/facade/lang';
-import {isArray} from '@ng2/common';
+import {isArray, isPresent, isBlank} from '@anglr/common';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
@@ -36,7 +35,7 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     /**
      * Object monitoring collection changes
      */
-    private _differ: IterableDiffer;
+    private _differ: IterableDiffer<{}>;
     
     /**
      * Subject that is used for emitting changed values

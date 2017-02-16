@@ -1,6 +1,6 @@
 import {Directive,
         Input} from '@angular/core';
-import {isPresent, isBlank} from '@angular/core/src/facade/lang';
+import {isPresent, isBlank} from '@anglr/common';
 
 /**
  * Directive that wraps options for bootstrap select

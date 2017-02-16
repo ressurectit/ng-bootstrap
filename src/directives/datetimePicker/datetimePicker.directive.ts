@@ -1,5 +1,5 @@
 import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, EventEmitter, Output} from '@angular/core';
-import {GlobalizationService} from '@ng2/common';
+import {GlobalizationService} from '@anglr/common';
 
 import {Datetimepicker} from 'eonasdan-bootstrap-datetimepicker';
 import {Observable} from 'rxjs/Observable';

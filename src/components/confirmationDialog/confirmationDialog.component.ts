@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {Utils} from '@ng2/common';
+import {Utils} from '@anglr/common';
 import * as $ from 'jquery';
 
 /**

@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, OnDestroy, AfterViewInit, EventEmitter} from '@angular/core';
-import {isBlank} from '@angular/core/src/facade/lang';
+import {isBlank} from '@anglr/common';
 import * as $ from 'jquery';
 
 /**

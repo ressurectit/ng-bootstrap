@@ -1,6 +1,6 @@
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {forwardRef, ExistingProvider, Directive, OnDestroy} from '@angular/core';
-import {isBlank} from '@angular/core/src/facade/lang';
+import {isBlank} from '@anglr/common';
 import {BootstrapSelectDirective} from './bootstrapSelect.directive';
 import {BootstrapSelectOptionDirective} from './bootstrapSelectOption.directive';
 import {Subscription} from 'rxjs/Subscription';
