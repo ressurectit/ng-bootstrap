@@ -10,8 +10,8 @@ import {isPresent, isBlank} from '@anglr/common';
     selector: "option.selectpicker",
     host:
     {
-        "value": "_optionValue",
-        "[value]": "_optionValue"
+        "value": "optionValue",
+        "[value]": "optionValue"
     }
 })
 export class BootstrapSelectOptionDirective
@@ -21,7 +21,7 @@ export class BootstrapSelectOptionDirective
     /**
      * Value of option attribute value
      */
-    private _optionValue: string;
+    public optionValue: string;
 
     /**
      * Real value of option
@@ -50,7 +50,7 @@ export class BootstrapSelectOptionDirective
                 throw new Error(`Specified property does not exists or is not set '${this.valueProperty}'!`);
             }
 
-            this._optionValue = this.value[this.valueProperty];
+            this.optionValue = this.value[this.valueProperty];
         }
     }
     public get valueProperty(): string
@@ -68,7 +68,7 @@ export class BootstrapSelectOptionDirective
 
         if(isBlank(this.valueProperty))
         {
-            this._optionValue = val;
+            this.optionValue = val;
         }
         else
         {
@@ -77,7 +77,7 @@ export class BootstrapSelectOptionDirective
                 throw new Error(`Specified property does not exists or is not set '${this.valueProperty}'!`);
             }
 
-            this._optionValue = val[this.valueProperty];
+            this.optionValue = val[this.valueProperty];
         }
     }
     public get value(): any

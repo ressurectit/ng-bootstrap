@@ -22,7 +22,7 @@ const TYPEAHEAD_VALUE_ACCESSOR: ExistingProvider =
     providers: [TYPEAHEAD_VALUE_ACCESSOR],
     host: 
     {
-        '(blur)': '_onTouched()'
+        '(blur)': 'onTouched()'
     }
 })
 export class TypeaheadControlValueAccessor implements ControlValueAccessor, OnDestroy
@@ -32,7 +32,7 @@ export class TypeaheadControlValueAccessor implements ControlValueAccessor, OnDe
     /**
      * Method that is called when typeahead was touched
      */
-    private _onTouched = () => {};
+    public onTouched = () => {};
     
     /**
      * Subscription that looks for changes of typeahead
@@ -85,7 +85,7 @@ export class TypeaheadControlValueAccessor implements ControlValueAccessor, OnDe
      */
     public registerOnTouched(fn: () => any): void
     {
-        this._onTouched = fn;
+        this.onTouched = fn;
     }
     
     //######################### public methods - implementation of OnDestroy #########################

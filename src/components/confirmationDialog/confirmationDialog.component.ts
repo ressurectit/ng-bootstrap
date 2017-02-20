@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 {
     selector: "confirmation-dialog",
     template:
-   `<modal-dialog [dialogId]="_id"
+   `<modal-dialog [dialogId]="id"
             [(visible)]="visible"
             [dialogTitle]="confirmationTitle"
             dialogCss="modal-sm">
@@ -23,7 +23,7 @@ import * as $ from 'jquery';
                 <span>{{dialogCancelText}}</span>
             </button>
 
-            <button type="button" class="btn btn-primary" (click)="_confirm()">
+            <button type="button" class="btn btn-primary" (click)="confirm()">
                 <span class="glyphicon glyphicon-ok"></span>
                 <span>{{dialogConfirmText}}</span>
             </button>
@@ -43,7 +43,7 @@ export class ConfirmationDialogComponent
     /**
      * Id of confirmation dialog
      */
-    private _id: string = "";
+    public id: string = "";
     
     /**
      * Data that can be passed to confirmation
@@ -118,7 +118,7 @@ export class ConfirmationDialogComponent
     //######################### constructor #########################
     constructor()
     {
-        this._id = Utils.common.generateId(12);
+        this.id = Utils.common.generateId(12);
     }
     
     //######################### public methods #########################
@@ -138,7 +138,7 @@ export class ConfirmationDialogComponent
     /**
      * Method called for confirmation
      */
-    private _confirm()
+    public confirm()
     {
         this._visible = false;
         this.confirmed.emit(this._data);

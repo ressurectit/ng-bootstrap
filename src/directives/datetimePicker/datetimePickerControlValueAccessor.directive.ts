@@ -22,7 +22,7 @@ const DATETIME_PICKER_VALUE_ACCESSOR: ExistingProvider =
     providers: [DATETIME_PICKER_VALUE_ACCESSOR],
     host: 
     {
-        '(blur)': '_onTouched()'
+        '(blur)': 'onTouched()'
     }
 })
 export class DatetimePickerControlValueAccessor implements ControlValueAccessor, OnDestroy
@@ -32,7 +32,7 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
     /**
      * Method that is called when picker was touched
      */
-    private _onTouched = () => {};
+    public onTouched = () => {};
     
     /**
      * Subscription that looks for changes of picker
@@ -85,7 +85,7 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
      */
     public registerOnTouched(fn: () => any): void
     {
-        this._onTouched = fn;
+        this.onTouched = fn;
     }
     
     //######################### public methods - implementation of OnDestroy #########################
