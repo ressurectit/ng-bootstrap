@@ -8,7 +8,10 @@ import {Directive,
         OnDestroy,
         ChangeDetectorRef,
         IterableDiffers,
+        Inject,
+        PLATFORM_ID,
         IterableDiffer} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import {isArray, isPresent, isBlank} from '@anglr/common';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
@@ -26,6 +29,11 @@ import * as $ from 'jquery';
 export class BootstrapSelectDirective implements AfterViewChecked, AfterContentInit, OnDestroy
 {
     //######################### private fields #########################
+
+    /**
+     * Indication that current code is running in browser
+     */
+    private _isBrowser: boolean = false;
 
     /**
      * Collection of items that are displayed in select
@@ -90,6 +98,11 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     {
         this._value = val;
 
+        if(!this._isBrowser)
+        {
+            return;
+        }
+
         if(isBlank(val))
         {
             this.selector.selectpicker("val", val);
@@ -145,8 +158,16 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     //######################### constructor #########################
     constructor(private _element: ElementRef,
                 private _changeDetector: ChangeDetectorRef,
-                private _iterableDiffers: IterableDiffers)
+                private _iterableDiffers: IterableDiffers,
+                @Inject(PLATFORM_ID) platformId: string)
     {
+        this._isBrowser = isPlatformBrowser(platformId);
+
+        if(!this._isBrowser)
+        {
+            return;
+        }
+
         this.selector.selectpicker();
         this.selector.on('changed.bs.select', () =>
         {
@@ -173,7 +194,7 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
      */
     public ngAfterViewChecked(): any
     {
-        if (isPresent(this._differ))
+        if (isPresent(this._differ) && this._isBrowser)
         {
             var changes = this._differ.diff(this._collection);
 
@@ -205,8 +226,11 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
      */
     public ngOnDestroy()
     {
-        this._contentOptionsSubscription.unsubscribe();
-        this._contentOptionsSubscription = null;
+        if(this._contentOptionsSubscription)
+        {
+            this._contentOptionsSubscription.unsubscribe();
+            this._contentOptionsSubscription = null;
+        }
     }
 
     //######################### private methods #########################

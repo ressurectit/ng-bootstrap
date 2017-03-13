@@ -1,6 +1,6 @@
 {
     "name": "@anglr/bootstrap",
-    "version": "3.0.0-beta.1",
+    "version": "3.0.0-beta.2",
     "description": "Angular module wrapping bootstrap components",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -20,7 +20,8 @@
         "deploy:stable": "npp -b",
         "deploy:next": "npp -p -b -s \"beta\" -t \"next\""
     },
-    "keywords": [
+    "keywords": 
+    [
         "angular",
         "ng",
         "bootstrap",
@@ -30,13 +31,13 @@
     "license": "MIT",
     "dependencies":
     {
-        "@angular/core": ">=4.0.0-beta.8",
-        "@angular/common": ">=4.0.0-beta.8",
-        "@angular/forms": ">=4.0.0-beta.8",
+        "@angular/core": ">=4.0.0-rc.2",
+        "@angular/common": ">=4.0.0-rc.2",
+        "@angular/forms": ">=4.0.0-rc.2",
         "core-js": "~2.4.1",
         "zone.js": "~0.7.7",
         "rxjs": "^5.1.1",
-        "@anglr/common": ">=3.0.0-beta.0"
+        "@anglr/common": ">=3.0.0-beta.2"
     },
     "peerDependencies":
     {
@@ -44,7 +45,7 @@
         "jquery": "~2.2.1",
         "moment": "~2.16.0",
         "bootstrap-select": "1.12.1",
-        "eonasdan-bootstrap-datetimepicker": "^4.17.46",
+        "eonasdan-bootstrap-datetimepicker": "^4.17.47",
         "typeahead.js": "~0.11.1",
         "handlebars": "~4.0.6"
     },
@@ -56,10 +57,10 @@
         "@types/typeahead": "~0.11.27",
         "@types/handlebars": "~4.0.31",
         "@anglr/types": "1.1.0",
-        "@angular/compiler-cli": ">=4.0.0-beta.8",
-        "@angular/compiler": ">=4.0.0-beta.8",
+        "@angular/compiler-cli": ">=4.0.0-rc.2",
+        "@angular/compiler": ">=4.0.0-rc.2",
         "rimraf": "~2.5.4",
-        "typescript": "2.1.6",
+        "typescript": "2.2.1",
         "webpack": "2.2.1",
         "npm-publish-package": "~1.2.0"
     }

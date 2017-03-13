@@ -1,4 +1,5 @@
-import {Directive, ElementRef, OnInit, Input} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import {Subject} from 'rxjs/Subject';
 import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
@@ -16,6 +17,11 @@ import * as Handlebars from 'handlebars';
 export class TypeaheadDirective implements OnInit
 {
     //######################### private fields #########################
+
+    /**
+     * Indication that current code is running in browser
+     */
+    private _isBrowser: boolean = false;
 
     /**
      * Currently selected value
@@ -108,7 +114,10 @@ export class TypeaheadDirective implements OnInit
                 val = val[this.typeaheadDisplayedProperty] || "";
             }
             
-            this._selector.typeahead("val", val);
+            if(this._isBrowser)
+            {
+                this._selector.typeahead("val", val);
+            }
         }
     }
     
@@ -121,9 +130,14 @@ export class TypeaheadDirective implements OnInit
     }
 
     //######################### constructor #########################
-    constructor(element: ElementRef)
+    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: string)
     {
-        this._selector = $(element.nativeElement);
+        this._isBrowser = isPlatformBrowser(platformId);
+
+        if(this._isBrowser)
+        {
+            this._selector = $(element.nativeElement);
+        }
     }
 
     //######################### public methods - implementation of OnInit #########################
@@ -136,6 +150,11 @@ export class TypeaheadDirective implements OnInit
         if(!this.typeaheadSource)
         {
             throw new Error("You must specify 'typeaheadSource' function.");
+        }
+
+        if(!this._isBrowser)
+        {
+            return;
         }
 
         this._valueChangeSubject

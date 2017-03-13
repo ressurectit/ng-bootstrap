@@ -1,4 +1,5 @@
-import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, EventEmitter, Output} from '@angular/core';
+import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, EventEmitter, Output, Inject, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import {GlobalizationService} from '@anglr/common';
 
 import {Datetimepicker} from 'eonasdan-bootstrap-datetimepicker';
@@ -20,6 +21,16 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
 {
     //######################### private fields #########################
     
+    /**
+     * Indication that current code is running in browser
+     */
+    private _isBrowser: boolean = false;
+
+    /**
+     * Private value used on server side
+     */
+    private _value: moment.Moment;
+
     /**
      * Subscription for globalization changes
      */
@@ -56,7 +67,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     @Input()
     public set minDate(value: moment.Moment) 
     {
-        if (value) 
+        if (value && this._isBrowser) 
         {
             this.pickerObj.minDate(value);
         }
@@ -68,7 +79,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     @Input()
     public set maxDate(value: moment.Moment)
     {
-        if (value) 
+        if (value && this._isBrowser) 
         {
             this.pickerObj.maxDate(value);
         }
@@ -97,11 +108,21 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      */
     public set value(val: any)
     {
-        this.pickerObj.date(val);
+        this._value = val;
+
+        if(this._isBrowser)
+        {
+            this.pickerObj.date(val);
+        }
     }
     public get value(): any
     {
-        return this.pickerObj.date() || null;
+        if(this._isBrowser)
+        {
+            return this.pickerObj.date() || null;
+        }
+        
+        return this._value;
     }
     
     //######################### private properties #########################
@@ -125,13 +146,21 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     //######################### constructor #########################
     constructor(private _element: ElementRef,
                 @Attribute("type") type: string,
-                globalizationService: GlobalizationService)
+                globalizationService: GlobalizationService,
+                @Inject(PLATFORM_ID) platformId: string)
     {
         if(!(globalizationService instanceof GlobalizationService))
         {
             throw new Error("Provided 'DatetimepickerGlobalizationService' is not implementation of 'DatetimepickerGlobalizationService'");
         }
-        
+
+        this._isBrowser = isPlatformBrowser(platformId);
+
+        if(!this._isBrowser)
+        {
+            return;
+        }
+
         this.locale = globalizationService.getLocale();
         
         this._globalizationSubscription = globalizationService.getLocaleChange().subscribe(locale => 
@@ -162,6 +191,11 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      */
     public ngOnInit()
     {
+        if(!this._isBrowser)
+        {
+            return;
+        }
+
         if(this.format)
         {
             this.pickerObj.format(this.format);
@@ -214,6 +248,9 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      */
     public toggle()
     {
-        this.pickerObj.toggle();
+        if(this._isBrowser)
+        {
+            this.pickerObj.toggle();
+        }
     }
 }

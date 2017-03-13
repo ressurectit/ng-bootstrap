@@ -1,4 +1,5 @@
-import {Directive, ElementRef, AfterViewInit, OnDestroy, Input} from '@angular/core';
+import {Directive, ElementRef, AfterViewInit, OnDestroy, Input, PLATFORM_ID, Inject} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import * as $ from 'jquery';
 
 /**
@@ -12,6 +13,11 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
 {
     //######################### private fields #########################
     
+    /**
+     * Indication that current code is running in browser
+     */
+    private _isBrowser: boolean = false;
+
     /**
      * Indication whether was tooltip already initialized
      */
@@ -67,9 +73,14 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
     public trigger: string = "hover";
     
     //######################### constructor #########################
-    constructor(element: ElementRef)
+    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: string)
     {
-        this._jqueryElement = $(element.nativeElement); 
+        this._isBrowser = isPlatformBrowser(platformId);
+
+        if(this._isBrowser)
+        {
+            this._jqueryElement = $(element.nativeElement); 
+        }
     }
 
     //######################### public methods - implementation of AfterViewInit #########################
@@ -89,7 +100,10 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
      */
     public ngOnDestroy()
     {
-        this._jqueryElement.tooltip('destroy');
+        if(this._isBrowser)
+        {
+            this._jqueryElement.tooltip('destroy');
+        }
     }
     
     //######################### private methods #########################
@@ -99,6 +113,11 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
      */
     private _setValue()
     {
+        if(!this._isBrowser)
+        {
+            return;
+        }
+
         this._jqueryElement.attr("title", this._text);
         
         if(this._initialized)
