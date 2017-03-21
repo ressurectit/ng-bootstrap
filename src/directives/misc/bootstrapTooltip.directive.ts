@@ -73,7 +73,7 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
     public trigger: string = "hover";
     
     //######################### constructor #########################
-    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: string)
+    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: Object)
     {
         this._isBrowser = isPlatformBrowser(platformId);
 

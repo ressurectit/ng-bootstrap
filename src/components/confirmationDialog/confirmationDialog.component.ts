@@ -1,6 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Utils} from '@anglr/common';
-import * as $ from 'jquery';
 
 /**
  * Bootstrap modal confirmation dialog component

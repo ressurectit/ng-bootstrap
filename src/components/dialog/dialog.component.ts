@@ -1,4 +1,5 @@
-import {Component, Input, Output, OnInit, OnDestroy, AfterViewInit, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, OnDestroy, AfterViewInit, EventEmitter, Inject, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import {isBlank} from '@anglr/common';
 import * as $ from 'jquery';
 
@@ -35,6 +36,11 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
 {
     //######################### private fields #########################
     
+    /**
+     * Indication that current code is running in browser
+     */
+    private _isBrowser: boolean = false;
+
     /**
      * Indication whether is dialog visible
      */
@@ -96,6 +102,11 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
         {
             return;
         }
+
+        if(!this._isBrowser)
+        {
+            return;
+        }
         
         let dialog = $(this.dialogSelector); 
         
@@ -148,6 +159,12 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
     {
         return `#${this.dialogId}`;
     }
+
+    //######################### constructor #########################
+    constructor(@Inject(PLATFORM_ID) platformId: Object)
+    {
+        this._isBrowser = isPlatformBrowser(platformId);
+    }
     
     //######################### public methods - implementation of OnInit #########################
     
@@ -179,10 +196,13 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
      */
     public ngAfterViewInit()
     {
-        $(this.dialogSelector).on('hidden.bs.modal', e => 
+        if(this._isBrowser)
         {
-            this._visible = false
-            this.visibleChange.emit(false);
-        });
+            $(this.dialogSelector).on('hidden.bs.modal', e => 
+            {
+                this._visible = false
+                this.visibleChange.emit(false);
+            });
+        }
     }
 }

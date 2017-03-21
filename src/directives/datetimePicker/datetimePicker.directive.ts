@@ -147,7 +147,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     constructor(private _element: ElementRef,
                 @Attribute("type") type: string,
                 globalizationService: GlobalizationService,
-                @Inject(PLATFORM_ID) platformId: string)
+                @Inject(PLATFORM_ID) platformId: Object)
     {
         if(!(globalizationService instanceof GlobalizationService))
         {

@@ -38,7 +38,7 @@ export class BootstrapPopoverDirective implements AfterViewInit, OnDestroy
     public contentPosition: string = "auto";
 
     //######################### constructor #########################   
-    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: string)
+    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: Object)
     {
         this._isBrowser = isPlatformBrowser(platformId);
 

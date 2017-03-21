@@ -159,7 +159,7 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     constructor(private _element: ElementRef,
                 private _changeDetector: ChangeDetectorRef,
                 private _iterableDiffers: IterableDiffers,
-                @Inject(PLATFORM_ID) platformId: string)
+                @Inject(PLATFORM_ID) platformId: Object)
     {
         this._isBrowser = isPlatformBrowser(platformId);
 

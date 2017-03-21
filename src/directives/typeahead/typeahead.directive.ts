@@ -130,7 +130,7 @@ export class TypeaheadDirective implements OnInit
     }
 
     //######################### constructor #########################
-    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: string)
+    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: Object)
     {
         this._isBrowser = isPlatformBrowser(platformId);
 
