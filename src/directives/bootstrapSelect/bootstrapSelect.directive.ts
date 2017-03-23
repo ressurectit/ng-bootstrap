@@ -7,6 +7,7 @@ import {Directive,
         ElementRef,
         OnDestroy,
         ChangeDetectorRef,
+        HostBinding,
         IterableDiffers,
         Inject,
         PLATFORM_ID,
@@ -56,6 +57,11 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     private _value: string;
 
     /**
+     * Indication that current bootstrap select is disabled
+     */
+    private _disabled: boolean = false;
+
+    /**
      * Subscription for changes of content options
      */
     private _contentOptionsSubscription: Subscription;
@@ -79,6 +85,25 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
 
             this._differ = this._iterableDiffers.find(itms).create(this._changeDetector);
         }
+    }
+
+    /**
+     * Indication that current bootstrap select is disabled
+     */
+    @Input()
+    @HostBinding()
+    public set disabled(value: boolean)
+    {
+        this._disabled = value;
+
+        if(this._isBrowser)
+        {
+            this.selector.selectpicker("refresh");
+        }
+    }
+    public get disabled(): boolean
+    {
+        return this._disabled;
     }
     
     //######################### public properties #########################
