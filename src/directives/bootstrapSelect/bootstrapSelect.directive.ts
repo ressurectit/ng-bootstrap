@@ -6,7 +6,6 @@ import {Directive,
         AfterContentInit,
         ElementRef,
         OnDestroy,
-        ChangeDetectorRef,
         HostBinding,
         IterableDiffers,
         Inject,
@@ -83,7 +82,7 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
                 throw new Error("Parameters supplied for bootstrap-select trackCollection is not an array.");
             }
 
-            this._differ = this._iterableDiffers.find(itms).create(this._changeDetector);
+            this._differ = this._iterableDiffers.find(itms).create();
         }
     }
 
@@ -182,7 +181,6 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
 
     //######################### constructor #########################
     constructor(private _element: ElementRef,
-                private _changeDetector: ChangeDetectorRef,
                 private _iterableDiffers: IterableDiffers,
                 @Inject(PLATFORM_ID) platformId: Object)
     {
