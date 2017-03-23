@@ -1,6 +1,6 @@
 {
     "name": "@anglr/bootstrap",
-    "version": "3.0.0-beta.4",
+    "version": "3.0.0-beta.5",
     "description": "Angular module wrapping bootstrap components",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -56,7 +56,7 @@
         "@types/eonasdan-bootstrap-datetimepicker": "~4.17.22",
         "@types/typeahead": "~0.11.27",
         "@types/handlebars": "~4.0.31",
-        "@anglr/types": "1.1.0",
+        "@anglr/types": "~1.1.2",
         "@angular/compiler-cli": ">=4.0.0-rc.5",
         "@angular/compiler": ">=4.0.0-rc.5",
         "rimraf": "~2.6.1",

@@ -1,9 +1,3 @@
-import 'jquery';
-import 'bootstrap';
-import 'eonasdan-bootstrap-datetimepicker';
-import 'bootstrap-select';
-import 'handlebars';
-import 'typeahead';
 import 'rxjs/add/operator/debounceTime';
 
 export {DialogComponent} from './components/dialog';
