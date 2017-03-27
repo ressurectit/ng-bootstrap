@@ -1,6 +1,6 @@
 {
     "name": "@anglr/bootstrap",
-    "version": "3.0.0-beta.6",
+    "version": "3.0.0",
     "description": "Angular module wrapping bootstrap components",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -31,20 +31,20 @@
     "license": "MIT",
     "dependencies":
     {
-        "@angular/core": ">=4.0.0-rc.5",
-        "@angular/common": ">=4.0.0-rc.5",
-        "@angular/forms": ">=4.0.0-rc.5",
+        "@angular/core": "^4.0.0",
+        "@angular/common": "^4.0.0",
+        "@angular/forms": "^4.0.0",
         "core-js": "~2.4.1",
-        "zone.js": "^0.8.4",
+        "zone.js": "^0.8.5",
         "rxjs": "^5.2.0",
-        "@anglr/common": ">=3.0.0-beta.6"
+        "@anglr/common": "^3.0.0"
     },
     "peerDependencies":
     {
         "bootstrap": "~3.3.7",
         "jquery": "~2.2.1",
         "moment": "~2.16.0",
-        "bootstrap-select": "1.12.1",
+        "bootstrap-select": "^1.11.3",
         "eonasdan-bootstrap-datetimepicker": "^4.17.47",
         "typeahead.js": "~0.11.1",
         "handlebars": "~4.0.6"
@@ -57,11 +57,11 @@
         "@types/typeahead": "~0.11.27",
         "@types/handlebars": "~4.0.31",
         "@anglr/types": "~1.1.2",
-        "@angular/compiler-cli": ">=4.0.0-rc.5",
-        "@angular/compiler": ">=4.0.0-rc.5",
+        "@angular/compiler-cli": "^4.0.0",
+        "@angular/compiler": "^4.0.0",
         "rimraf": "~2.6.1",
         "typescript": "2.2.1",
-        "webpack": "2.2.1",
+        "webpack": "2.3.2",
         "npm-publish-package": "~1.2.0"
     }
 }
