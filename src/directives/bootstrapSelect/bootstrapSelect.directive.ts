@@ -6,7 +6,7 @@ import {Directive,
         AfterContentInit,
         ElementRef,
         OnDestroy,
-        HostBinding,
+        Renderer2,
         IterableDiffers,
         Inject,
         PLATFORM_ID,
@@ -90,11 +90,12 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
      * Indication that current bootstrap select is disabled
      */
     @Input()
-    @HostBinding()
     public set disabled(value: boolean)
     {
         this._disabled = value;
 
+        this._renderer.setProperty(this._element.nativeElement, 'disabled', value);
+        
         if(this._isBrowser)
         {
             this.selector.selectpicker("refresh");
@@ -182,7 +183,8 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     //######################### constructor #########################
     constructor(private _element: ElementRef,
                 private _iterableDiffers: IterableDiffers,
-                @Inject(PLATFORM_ID) platformId: Object)
+                @Inject(PLATFORM_ID) platformId: Object,
+                private _renderer: Renderer2)
     {
         this._isBrowser = isPlatformBrowser(platformId);
 
