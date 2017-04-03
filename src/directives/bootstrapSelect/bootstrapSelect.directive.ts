@@ -7,7 +7,7 @@ import {Directive,
         ElementRef,
         OnDestroy,
         ChangeDetectorRef,
-        HostBinding,
+        Renderer,
         IterableDiffers,
         IterableDiffer} from '@angular/core';
 import {isPresent, isBlank} from '@angular/core/src/facade/lang';
@@ -84,11 +84,11 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
      * Indication that current bootstrap select is disabled
      */
     @Input()
-    @HostBinding()
     public set disabled(value: boolean)
     {
         this._disabled = value;
 
+        this._renderer.setElementProperty(this._element.nativeElement, 'disabled', value);
         this.selector.selectpicker("refresh");
     }
     public get disabled(): boolean
@@ -168,7 +168,8 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     //######################### constructor #########################
     constructor(private _element: ElementRef,
                 private _changeDetector: ChangeDetectorRef,
-                private _iterableDiffers: IterableDiffers)
+                private _iterableDiffers: IterableDiffers,
+                private _renderer: Renderer)
     {
         this.selector.selectpicker();
         this.selector.on('changed.bs.select', () =>
