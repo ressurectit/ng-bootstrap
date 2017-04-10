@@ -20,7 +20,12 @@ import * as $ from 'jquery';
 export class DatetimePickerDirective implements OnInit, OnDestroy
 {
     //######################### private fields #########################
-    
+
+    /**
+     * Moment js format of datetimer picker
+     */
+    private _format: string | boolean;
+
     /**
      * Indication that current code is running in browser
      */
@@ -35,7 +40,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      * Subscription for globalization changes
      */
     private _globalizationSubscription: Subscription = null;
-    
+
     /**
      * Subject that is used for emitting changed values
      */
@@ -47,54 +52,63 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      * Moment js format of datetimer picker
      */
     @Input()
-    public format: string;
-    
+    public set format(value: string)
+    {
+        this._format = value || false;
+
+        if (this._isBrowser)
+        {
+            this.pickerObj.format(value);
+            this.pickerObj.viewMode("days");
+        }
+    }
+
     /**
      * Moment js locale that will set format of date time
      */
     @Input()
     public locale: string;
-    
+
     /**
      * Object of other datetime picker which will be linked with this, set only on second one (containing higher value)
      */
-    @Input() 
+    @Input()
     public linkWith: DatetimePickerDirective;
-    
+
     /**
      * Minimum date that is allowed to enter
      */
     @Input()
-    public set minDate(value: moment.Moment) 
+    public set minDate(value: moment.Moment)
     {
-        if (value && this._isBrowser) 
+        if (value && this._isBrowser)
         {
             this.pickerObj.minDate(value);
         }
-    }    
-    
+    }
+
     /**
      * Maximum date that is allowed to enter
      */
     @Input()
     public set maxDate(value: moment.Moment)
     {
-        if (value && this._isBrowser) 
+        if (value && this._isBrowser)
         {
             this.pickerObj.maxDate(value);
         }
     }
-    
+
     //######################### public properties - outputs #########################
-    
+
     /**
      * Output event that is triggered when value of picker has changed
      */
     @Output()
     public dateChange: EventEmitter<moment.Moment> = new EventEmitter<moment.Moment>();
-    
+
     //######################### public properties #########################
-    
+
     /**
      * Gets observable that is trigerred when picker value changed
      */
@@ -102,7 +116,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     {
         return this._pickerChangedSubject.asObservable();
     }
-    
+
     /**
      * Gets or sets value of datetime picker, any picker supported value
      */
@@ -121,12 +135,12 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         {
             return this.pickerObj.date() || null;
         }
-        
+
         return this._value;
     }
-    
+
     //######################### private properties #########################
-    
+
     /**
      * Gets jQuery object for datetime picker
      */
@@ -134,7 +148,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     {
         return $(this._element.nativeElement);
     }
-    
+
     /**
      * Gets object of datetime picker
      */
@@ -162,13 +176,18 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         }
 
         this.locale = globalizationService.getLocale();
-        
-        this._globalizationSubscription = globalizationService.getLocaleChange().subscribe(locale => 
+
+        this._globalizationSubscription = globalizationService.getLocaleChange().subscribe(locale =>
         {
             this.locale = locale;
             this.pickerObj.locale(locale);
-        })
-        
+        });
+
+        this.selector.datetimepicker(
+        {
+            locale: this.locale
+        });
+
         if(type == "datetime")
         {
             this.format = "L LT";
@@ -177,11 +196,6 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         {
             this.format = "L";
         }
-        
-        this.selector.datetimepicker(
-        {
-            locale: this.locale
-        });
     }
 
     //######################### public methods - implementation of OnInit #########################
@@ -189,35 +203,30 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     /**
      * Initialize component
      */
-    public ngOnInit()
+    public ngOnInit(): void
     {
         if(!this._isBrowser)
         {
             return;
         }
 
-        if(this.format)
-        {
-            this.pickerObj.format(this.format);
-        }
-        
         if(this.linkWith)
         {
             this.pickerObj.useCurrent(false);
             this.linkWith.pickerObj.useCurrent(false);
-        }               
-        
+        }
+
         this.selector.on("dp.change", event =>
         {
             if(this.linkWith)
             {
                 this.linkWith.pickerObj.maxDate(event.date);
             }
-            
+
             this._pickerChangedSubject.next(event.date || null);
             this.dateChange.emit(event.date || null);
         });
-        
+
         if(this.linkWith)
         {
             this.linkWith.selector.on("dp.change", event =>
@@ -226,13 +235,13 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
             });
         }
     }
-    
+
     //######################### public methods - implementation of OnDestroy #########################
-    
+
     /**
      * Called when component is destroyed
      */
-    public ngOnDestroy()
+    public ngOnDestroy(): void
     {
         if(this._globalizationSubscription)
         {
@@ -246,7 +255,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     /**
      * Toggles visibility of date time picker
      */
-    public toggle()
+    public toggle(): void
     {
         if(this._isBrowser)
         {
