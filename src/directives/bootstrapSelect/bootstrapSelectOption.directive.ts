@@ -66,7 +66,7 @@ export class BootstrapSelectOptionDirective
     {
         this._value = val;
 
-        if(isBlank(this.valueProperty))
+        if(isBlank(this.valueProperty) || isBlank(val))
         {
             this.optionValue = val;
         }
@@ -120,6 +120,17 @@ export class BootstrapSelectOptionDirective
         }
         else
         {
+            if((isBlank(val) && isPresent(this.value)) ||
+               (isBlank(this.value) && isPresent(val)))
+            {
+                return false;
+            }
+
+            if(isBlank(val) && isBlank(this.value))
+            {
+                return true;
+            }
+
             if(isBlank(val[this.valueProperty]))
             {
                 throw new Error(`Specified property does not exists or is not set '${this.valueProperty}'!`);
