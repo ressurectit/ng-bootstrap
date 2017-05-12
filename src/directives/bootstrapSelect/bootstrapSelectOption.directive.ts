@@ -120,6 +120,11 @@ export class BootstrapSelectOptionDirective
         }
         else
         {
+            if(val === "")
+            {
+                return false;
+            }
+
             if((isBlank(val) && isPresent(this.value)) ||
                (isBlank(this.value) && isPresent(val)))
             {
