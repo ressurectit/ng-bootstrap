@@ -101,12 +101,6 @@ export class ConfirmationDialogComponent
     @Input()
     public confirmationTitle: string = "";
 
-    /**
-     * Indicates which button should have focus, if true confirm button, otherwise cancel button
-     */
-    @Input()
-    public confirmFocus: boolean = false;
-    
     //######################### public properties - outputs #########################
 
     /**
@@ -142,10 +136,6 @@ export class ConfirmationDialogComponent
             this.canceled.emit(this._data);
             this._data = null;
         }
-        else
-        {
-            this._setFocus();
-        }
     }
     public get visible(): boolean
     {
@@ -171,6 +161,26 @@ export class ConfirmationDialogComponent
     }
 
     /**
+     * Sets focus to one of buttons, if passed parameter is true then confirm button focus is set, otherwise cancelation button is set focus
+     */
+    public setFocus(confirmFocus?: boolean)
+    {
+        if(!this._isBrowser || !this.confirmButton || !this.cancelButton)
+        {
+            return;
+        }
+
+        if(confirmFocus)
+        {
+            this.confirmButton.nativeElement.focus();
+        }
+        else
+        {
+            this.cancelButton.nativeElement.focus();
+        }
+    }
+
+    /**
      * Method called for confirmation
      * 
      * @internal
@@ -180,27 +190,5 @@ export class ConfirmationDialogComponent
         this._visible = false;
         this.confirmed.emit(this._data);
         this._data = null;
-    }
-    
-    //######################### private methods #########################
-    
-    /**
-     * Sets focus to one of buttons
-     */
-    private _setFocus()
-    {
-        if(!this._isBrowser || !this.confirmButton || !this.cancelButton)
-        {
-            return;
-        }
-
-        if(this.confirmFocus)
-        {
-            this.confirmButton.nativeElement.focus();
-        }
-        else
-        {
-            this.cancelButton.nativeElement.focus();
-        }
     }
 }
