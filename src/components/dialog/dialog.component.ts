@@ -119,8 +119,8 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
         {
             if(this.backgroundFocus)
             {
-                this._enforceFocusBackup = $.fn.modal.Constructor.prototype.enforceFocus;
-                $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+                this._enforceFocusBackup = (<any>$.fn.modal).Constructor.prototype.enforceFocus;
+                (<any>$.fn.modal).Constructor.prototype.enforceFocus = function() {};
             }
 
             dialog.modal(options).modal("show");
@@ -129,7 +129,7 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
         {
             if(this.backgroundFocus)
             {
-                $.fn.modal.Constructor.prototype.enforceFocus = this._enforceFocusBackup;
+                (<any>$.fn.modal).Constructor.prototype.enforceFocus = this._enforceFocusBackup;
             }
 
             dialog.modal(options).modal("hide");
