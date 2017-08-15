@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, PLATFORM_ID, Inject} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, TemplateRef, PLATFORM_ID, Inject, ContentChild} from '@angular/core';
 import {isPlatformBrowser} from "@angular/common";
-import {Utils} from '@anglr/common';
+import { Utils, isPresent } from '@anglr/common';
 
 /**
  * Bootstrap modal confirmation dialog component
@@ -9,26 +9,29 @@ import {Utils} from '@anglr/common';
 {
     selector: "confirmation-dialog",
     template:
-   `<modal-dialog [dialogId]="id"
-                  [(visible)]="visible"
-                  [dialogTitle]="confirmationTitle"
-                  dialogCss="modal-sm">
-        <div class="dialog-body">
-            <div [innerHTML]="confirmationText"></div>
-        </div>
+        `<modal-dialog [dialogId]="id"
+                [(visible)]="visible"
+                [dialogTitle]="confirmationTitle"
+                [dialogCss]="dialogCss">
+            <div class="dialog-body">
+                <ng-template #defaultTemplate>
+                    <div [innerHTML]="confirmationText"></div>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="template || defaultTemplate"></ng-container>
+            </div>
 
-        <div class="dialog-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal" #cancelButton>
-                <span class="glyphicon glyphicon-ban-circle"></span>
-                <span>{{dialogCancelText}}</span>
-            </button>
+            <div class="dialog-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" #cancelButton>
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                    <span>{{dialogCancelText}}</span>
+                </button>
 
-            <button type="button" class="btn btn-primary" (click)="confirm()" #confirmButton>
-                <span class="glyphicon glyphicon-ok"></span>
-                <span>{{dialogConfirmText}}</span>
-            </button>
-        </div>
-    </modal-dialog>`,
+                <button type="button" class="btn btn-primary" [ngClass]="_confirmButtonType" (click)="confirm()" #confirmButton>
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <span>{{dialogConfirmText}}</span>
+                </button>
+            </div>
+        </modal-dialog>`,
     exportAs: "confirmationDialog"
 })
 export class ConfirmationDialogComponent
@@ -100,6 +103,29 @@ export class ConfirmationDialogComponent
      */
     @Input()
     public confirmationTitle: string = "";
+
+    /**
+     * Confirmation dialog body template
+     */
+    @Input()
+    @ContentChild(TemplateRef)
+    template: TemplateRef<any>;
+
+    /**
+     * Modal dialog extra css classes
+     */
+    @Input()
+    public dialogCss: string = "modal-sm";
+
+    private _confirmButtonType: string;
+
+    /**
+     * Button type: default, primary, success, info, warning, danger, link
+     */
+    @Input()
+    public set confirmButtonType(value: string) {
+        this._confirmButtonType = isPresent(value) ? 'btn-' + value : '';
+    }
 
     //######################### public properties - outputs #########################
 
