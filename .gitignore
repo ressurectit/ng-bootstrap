@@ -2,5 +2,6 @@
 /dist
 /testing
 
+package-lock.json
 *.log
 *~

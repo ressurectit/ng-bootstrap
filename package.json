@@ -1,11 +1,10 @@
 {
     "name": "@anglr/bootstrap",
-    "version": "3.0.5",
+    "version": "3.0.6",
     "description": "Angular module wrapping bootstrap components",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
-    "scripts":
-    {
+    "scripts": {
         "build": "npm run ngc",
         "postbuild": "copyfiles -u 2 dist/src/**/*.* dist && copyfiles -u 2 dist/testing/**/*.* testing && rimraf dist/src dist/dist dist/node_modules dist/testing",
         "clean": "rimraf dist testing",
@@ -19,10 +18,11 @@
         "bundle:min": "webpack --env.minify",
         "bundle:package": "npm run clean && npm run build && npm run bundle && npm run bundle:min",
         "deploy:stable": "npp -b",
-        "deploy:next": "npp -p -b -s \"beta\" -t \"next\""
+        "deploy:next": "npp -p -b -s \"beta\" -t \"next\"",
+        "deploy:stable:local": "npp -b --registry http://local:4873",
+        "deploy:next:local": "npp -p -b -s \"beta\" -t \"next\" --registry http://local:4873"
     },
-    "keywords": 
-    [
+    "keywords": [
         "angular",
         "ng",
         "bootstrap",
@@ -30,18 +30,16 @@
     ],
     "author": "kukjevov",
     "license": "MIT",
-    "dependencies":
-    {
-        "@angular/core": "^4.2.0",
-        "@angular/common": "^4.2.0",
-        "@angular/forms": "^4.2.0",
+    "dependencies": {
+        "@angular/core": "~4.1.0",
+        "@angular/common": "~4.1.0",
+        "@angular/forms": "~4.1.0",
         "core-js": "~2.4.1",
         "zone.js": "^0.8.12",
         "rxjs": "^5.2.0",
         "@anglr/common": "^3.0.0"
     },
-    "peerDependencies":
-    {
+    "peerDependencies": {
         "bootstrap": "~3.3.7",
         "jquery": "~2.2.1",
         "moment": "~2.16.0",
@@ -50,16 +48,15 @@
         "typeahead.js": "~0.11.1",
         "handlebars": "~4.0.6"
     },
-    "devDependencies":
-    {
+    "devDependencies": {
         "@types/jquery": "~2.0.40",
         "@types/bootstrap": "~3.3.32",
         "@types/eonasdan-bootstrap-datetimepicker": "~4.17.22",
         "@types/typeahead": "~0.11.27",
         "@types/handlebars": "~4.0.31",
         "@anglr/types": "~1.1.2",
-        "@angular/compiler-cli": "^4.2.0",
-        "@angular/compiler": "^4.2.0",
+        "@angular/compiler-cli": "~4.1.0",
+        "@angular/compiler": "~4.1.0",
         "rimraf": "~2.6.1",
         "copyfiles": "~1.2.0",
         "typescript": "2.3.4",

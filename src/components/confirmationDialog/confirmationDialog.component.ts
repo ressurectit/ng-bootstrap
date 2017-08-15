@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, TemplateRef, PLATFORM_ID, Inject, ContentChild} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, TemplateRef, PLATFORM_ID, Inject, ContentChild} from '@angular/core';
 import {isPlatformBrowser} from "@angular/common";
-import { Utils, isPresent } from '@anglr/common';
+import {Utils, isPresent} from '@anglr/common';
 
 /**
  * Bootstrap modal confirmation dialog component
@@ -63,6 +63,11 @@ export class ConfirmationDialogComponent
     public id: string = "";
 
     /**
+     * Button type: default, primary, success, info, warning, danger, link
+     */
+    public _confirmButtonType: string;
+
+    /**
      * Button that is used for confirmation
      * 
      * @internal
@@ -117,13 +122,12 @@ export class ConfirmationDialogComponent
     @Input()
     public dialogCss: string = "modal-sm";
 
-    private _confirmButtonType: string;
-
     /**
      * Button type: default, primary, success, info, warning, danger, link
      */
     @Input()
-    public set confirmButtonType(value: string) {
+    public set confirmButtonType(value: string) 
+    {
         this._confirmButtonType = isPresent(value) ? 'btn-' + value : '';
     }
 
