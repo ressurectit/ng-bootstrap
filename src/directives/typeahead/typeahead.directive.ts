@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {Subject} from 'rxjs/Subject';
 import {Observer} from 'rxjs/Observer';
@@ -203,24 +203,33 @@ export class TypeaheadDirective implements OnInit
             {
                 this.value = this._toValue(suggestion);
                 this._externalValueChangeSubject.next(this.value);
-            }).on("typeahead:change", (event, value) =>
-            {
-                //nothing selected value
-                if(!value)
-                {
-                    this.value = "";
-                    this._externalValueChangeSubject.next("");
-
-                    return;
-                }
-
-                //TODO - use stored data for change event
-                // this.value = this._toValue(value);
-                // this._externalValueChangeSubject.next(this.value);
             });
             
             this._initialized = true;
             this.value = this._value;
+    }
+
+    //######################### public methods - host #########################
+
+    /**
+     * Called when 'input' event occurs on input element
+     * @param {string} value Changed value
+     */
+    @HostListener('input', ['$event.target.value'])
+    public inputChange(value: string)
+    {
+        //nothing selected value
+        if(!value)
+        {
+            this.value = "";
+            this._externalValueChangeSubject.next("");
+
+            return;
+        }
+
+        //TODO - use stored data for change event
+        // this.value = this._toValue(value);
+        // this._externalValueChangeSubject.next(this.value);
     }
     
     //######################### private methods #########################
