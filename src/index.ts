@@ -6,4 +6,5 @@ export {DATETIME_PICKER_DIRECTIVES, DatetimePickerControlValueAccessor, Datetime
 export {BOOTSTRAP_SELECT_DIRECTIVES, BootstrapSelectControlValueAccessor, BootstrapSelectDirective, BootstrapSelectOptionDirective} from './directives/bootstrapSelect';
 export {BootstrapPopoverDirective, BootstrapTooltipDirective} from './directives/misc';
 export {TYPEAHEAD_DIRECTIVES, TypeaheadControlValueAccessor, TypeaheadDirective} from './directives/typeahead';
+export * from './directives/bootstrapSwitch/bootstrapSwitch.directive';
 export {BootstrapModule} from './modules/bootstrap.module';

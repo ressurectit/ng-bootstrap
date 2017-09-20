@@ -22,10 +22,12 @@
             "bootstrap-select",
             "eonasdan-bootstrap-datetimepicker",
             "typeahead",
-            "handlebars"
+            "handlebars",
+            "bootstrap-switch"
         ],
         "typeRoots": 
         [
+            "node_modules/@types",
             "node_modules/@anglr/types"
         ]
     },
