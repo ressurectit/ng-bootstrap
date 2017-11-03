@@ -22,11 +22,6 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     //######################### private fields #########################
 
     /**
-     * Moment js format of datetimer picker
-     */
-    private _format: string | boolean;
-
-    /**
      * Indication that current code is running in browser
      */
     private _isBrowser: boolean = false;
@@ -54,8 +49,6 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     @Input()
     public set format(value: string)
     {
-        this._format = value || false;
-
         if (this._isBrowser)
         {
             this.pickerObj.format(value);

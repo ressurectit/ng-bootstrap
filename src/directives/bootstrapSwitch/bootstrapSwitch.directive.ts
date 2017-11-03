@@ -1,4 +1,4 @@
-import {Directive, ChangeDetectionStrategy, OnDestroy, OnInit, ElementRef, Input} from '@angular/core';
+import {Directive, OnDestroy, OnInit, ElementRef, Input} from '@angular/core';
 import * as $ from 'jquery';
 
 @Directive(

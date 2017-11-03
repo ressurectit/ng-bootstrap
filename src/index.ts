@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/debounceTime';
-
 export {DialogComponent} from './components/dialog';
 export {ConfirmationDialogComponent} from './components/confirmationDialog';
 export {DATETIME_PICKER_DIRECTIVES, DatetimePickerControlValueAccessor, DatetimePickerDirective} from './directives/datetimePicker';

@@ -1,9 +1,9 @@
 import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {Subject} from 'rxjs/Subject';
-import {Observer} from 'rxjs/Observer';
-import {Observable} from 'rxjs/Observable';
 import {isPresent, isBlank, isJsObject} from '@anglr/common';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {debounceTime} from 'rxjs/operators';
 import * as $ from 'jquery';
 import * as Handlebars from 'handlebars';
 
@@ -66,13 +66,13 @@ export class TypeaheadDirective implements OnInit
      * Name of displayed property as selected value
      */
     @Input()
-    public typeaheadDisplayedProperty: string = null;
+    public typeaheadDisplayedProperty: string|null = null;
     
     /**
      * Name of property that is used for extracting value from object
      */
     @Input()
-    public typeaheadValueProperty: string = null;
+    public typeaheadValueProperty: string|null = null;
 
     /**
      * Debounce time that indicates after which time of idle perform search
@@ -84,13 +84,13 @@ export class TypeaheadDirective implements OnInit
      * Template that is used for suggestion, using handlebar syntax
      */
     @Input()
-    public typeaheadTemplate: string = null;
+    public typeaheadTemplate: string|null = null;
 
     /**
      * Function that is called to obtain data for search
      */
     @Input()
-    public typeaheadSource: (query) => Observable<any> = null;
+    public typeaheadSource: ((query: any) => Observable<any>)|null = null;
 
     //######################### public properties #########################
 
@@ -111,7 +111,7 @@ export class TypeaheadDirective implements OnInit
             
             if(isPresent(val) && isPresent(this.typeaheadDisplayedProperty) && isJsObject(val) && isBlank(this.typeaheadValueProperty))
             {
-                val = val[this.typeaheadDisplayedProperty] || "";
+                val = val[this.typeaheadDisplayedProperty as string] || "";
             }
             
             if(this._isBrowser)
@@ -158,7 +158,7 @@ export class TypeaheadDirective implements OnInit
         }
 
         this._valueChangeSubject
-            .debounceTime(this.typeaheadDebounceTime)
+            .pipe(debounceTime(this.typeaheadDebounceTime))
             .subscribe((queryAsync: any) =>
             {
                 this.typeaheadSource(queryAsync.query)
