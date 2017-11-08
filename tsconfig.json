@@ -12,7 +12,6 @@
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": false,
-        "strictFunctionTypes": false,
         "strictNullChecks": false,
         "outDir": "dist",
         "lib": 
