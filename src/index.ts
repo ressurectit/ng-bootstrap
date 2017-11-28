@@ -6,3 +6,4 @@ export {BootstrapPopoverDirective, BootstrapTooltipDirective} from './directives
 export {TYPEAHEAD_DIRECTIVES, TypeaheadControlValueAccessor, TypeaheadDirective} from './directives/typeahead';
 export * from './directives/bootstrapSwitch/bootstrapSwitch.directive';
 export {BootstrapModule} from './modules/bootstrap.module';
+export * from './components';
