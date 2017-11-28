@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 4.0.3
+ - adding css class to input if no value is selected and text is inserted in input
+
 ## Version 4.0.2
  - returned typescript version back to 2.4.2 and removed distJit
 

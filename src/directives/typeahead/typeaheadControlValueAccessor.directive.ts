@@ -63,7 +63,7 @@ export class TypeaheadControlValueAccessor implements ControlValueAccessor, OnDe
             value = null;
         }
         
-        this.value;
+        this.value = value;
         this._typeahead.value = value;
     }
 

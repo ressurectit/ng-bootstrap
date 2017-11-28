@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener, HostBinding} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {isPresent, isBlank, isJsObject} from '@anglr/common';
 import {Subject} from 'rxjs/Subject';
@@ -6,6 +6,8 @@ import {Observable} from 'rxjs/Observable';
 import {debounceTime} from 'rxjs/operators';
 import * as $ from 'jquery';
 import * as Handlebars from 'handlebars';
+
+//TODO - tooltip if no value selected and text inserted
 
 /**
  * Directive that is used for creating autocomplete (typeahead.js) on input
@@ -21,7 +23,7 @@ export class TypeaheadDirective implements OnInit
     /**
      * Indication that current code is running in browser
      */
-    private _isBrowser: boolean = false;
+    private _isBrowser: boolean = isPlatformBrowser(this._platformId);
 
     /**
      * Currently selected value
@@ -44,11 +46,22 @@ export class TypeaheadDirective implements OnInit
     private _externalValueChangeSubject: Subject<any> = new Subject();
 
     /**
+     * Subject that is used for emitting selection of value from options
+     */
+    private _externalValueSelectedSubject: Subject<any> = new Subject();
+
+    /**
      * Gets jQuery object for typeahead autocomplete
      */
     private _selector: JQuery;
 
     //######################### public properties - input #########################
+
+    /**
+     * Indication that also non existing value from options will be accepted as value, it is always as string value
+     */
+    @Input()
+    public freeInput: boolean = false;
 
     /**
      * Maximal number of displayed items
@@ -92,6 +105,14 @@ export class TypeaheadDirective implements OnInit
     @Input()
     public typeaheadSource: ((query: any) => Observable<any>)|null = null;
 
+    //######################### public properties - host #########################
+
+    /**
+     * Css class that is applied to input if no value is selected
+     */
+    @HostBinding('class.no-typeahead-value')
+    public noValueCssClass: boolean = false;
+
     //######################### public properties #########################
 
     /**
@@ -111,7 +132,7 @@ export class TypeaheadDirective implements OnInit
             
             if(isPresent(val) && isPresent(this.typeaheadDisplayedProperty) && isJsObject(val) && isBlank(this.typeaheadValueProperty))
             {
-                val = val[this.typeaheadDisplayedProperty as string] || "";
+                val = val[this.typeaheadDisplayedProperty!] || "";
             }
             
             if(this._isBrowser)
@@ -122,6 +143,14 @@ export class TypeaheadDirective implements OnInit
     }
     
     /**
+     * Gets observable that emits selection of item from options
+     */
+    public get valueSelected(): Observable<any>
+    {
+        return this._externalValueSelectedSubject.asObservable();
+    }
+
+    /**
      * Gets observable that emits changes of value
      */
     public get valueChanged(): Observable<any>
@@ -130,10 +159,8 @@ export class TypeaheadDirective implements OnInit
     }
 
     //######################### constructor #########################
-    constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: Object)
+    constructor(element: ElementRef, @Inject(PLATFORM_ID) private _platformId: Object)
     {
-        this._isBrowser = isPlatformBrowser(platformId);
-
         if(this._isBrowser)
         {
             this._selector = $(element.nativeElement);
@@ -163,7 +190,7 @@ export class TypeaheadDirective implements OnInit
             {
                 this.typeaheadSource(queryAsync.query)
                     .subscribe(data =>
-                    {//TODO - store data and use them for change event
+                    {
                         queryAsync.async(data);
                     });
             });
@@ -196,13 +223,11 @@ export class TypeaheadDirective implements OnInit
             }, datasetOptions)
             .on("typeahead:select", (event, suggestion) =>
             {
-                this.value = this._toValue(suggestion);
-                this._externalValueChangeSubject.next(this.value);
+                this._setValue(suggestion);
             })
             .on("typeahead:autocomplete", (event, suggestion) =>
             {
-                this.value = this._toValue(suggestion);
-                this._externalValueChangeSubject.next(this.value);
+                this._setValue(suggestion);
             });
             
             this._initialized = true;
@@ -221,19 +246,37 @@ export class TypeaheadDirective implements OnInit
         //nothing selected value
         if(!value)
         {
+            this.noValueCssClass = false;
             this.value = "";
             this._externalValueChangeSubject.next("");
 
             return;
         }
 
-        //TODO - use stored data for change event
+        //no free input allowed, set css class
+        if(!this.freeInput)
+        {
+            this.noValueCssClass = true;
+        }
+
+        //TODO - use stored data for change event, written text match existing value, use it
         // this.value = this._toValue(value);
         // this._externalValueChangeSubject.next(this.value);
     }
     
     //######################### private methods #########################
-    
+
+    /**
+     * Sets selected value 
+     * @param suggestion Suggestion that was selected or auto completed
+     */
+    private _setValue(suggestion)
+    {
+        this.noValueCssClass = false;
+        this.value = this._toValue(suggestion);
+        this._externalValueChangeSubject.next(this.value);
+    }
+
     /**
      * Converts val from suggestion to value of directive
      * @param  {any} val Val to be converted
