@@ -1,6 +1,6 @@
 import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener, HostBinding} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {isPresent, isBlank, isJsObject} from '@anglr/common';
+import {isPresent, isBlank, isJsObject, isFunction} from '@anglr/common';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {debounceTime} from 'rxjs/operators';
@@ -79,7 +79,7 @@ export class TypeaheadDirective implements OnInit
      * Name of displayed property as selected value
      */
     @Input()
-    public typeaheadDisplayedProperty: string|null = null;
+    public typeaheadDisplayedProperty: string|((suggestion: any) => string)|null = null;
     
     /**
      * Name of property that is used for extracting value from object
@@ -132,7 +132,14 @@ export class TypeaheadDirective implements OnInit
             
             if(isPresent(val) && isPresent(this.typeaheadDisplayedProperty) && isJsObject(val) && isBlank(this.typeaheadValueProperty))
             {
-                val = val[this.typeaheadDisplayedProperty!] || "";
+                if(isFunction(this.typeaheadDisplayedProperty))
+                {
+                    val = (this.typeaheadDisplayedProperty as (suggestion: any) => any)(val);
+                }
+                else
+                {
+                    val = val[this.typeaheadDisplayedProperty as string] || "";
+                }
             }
             
             if(this._isBrowser)
@@ -243,20 +250,18 @@ export class TypeaheadDirective implements OnInit
     @HostListener('input', ['$event.target.value'])
     public inputChange(value: string)
     {
-        //nothing selected value
-        if(!value)
-        {
-            this.noValueCssClass = false;
-            this.value = "";
-            this._externalValueChangeSubject.next("");
-
-            return;
-        }
-
         //no free input allowed, set css class
         if(!this.freeInput)
         {
-            this.noValueCssClass = true;
+            this.noValueCssClass = !!value;
+            this._value = null;
+            this._externalValueChangeSubject.next(null);
+        }
+        //free input allowed
+        else
+        {
+            this.value = value;
+            this._externalValueChangeSubject.next(value);
         }
 
         //TODO - use stored data for change event, written text match existing value, use it
@@ -275,6 +280,7 @@ export class TypeaheadDirective implements OnInit
         this.noValueCssClass = false;
         this.value = this._toValue(suggestion);
         this._externalValueChangeSubject.next(this.value);
+        this._externalValueSelectedSubject.next(this.value);
     }
 
     /**
