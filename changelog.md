@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 4.0.6
+ - `TypeaheadTagsComponent` now removes written text when duplicite value is found
+ - `TypeaheadTagsComponent` removed outline highlight for chrome
+
 ## Version 4.0.5
  - `TypeaheadTagsComponent` correctly calls `ChangeDetectorRef` for change detection
 

@@ -117,6 +117,7 @@ export interface TypeaheadTagsCssClasses
         .default-typeahead
         {
             border: none;
+            outline: none;
             padding: 0;
             width: 300px;
             margin-bottom: 4px;
@@ -432,9 +433,10 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
         {
             this._serializedValues.push(serializedVal);
             this.value.push(value);
-            this.typeahead.value = null;
             this._externalValueChangeSubject.next(this.value);
-            this._changeDetector.detectChanges();
         }
+
+        this.typeahead.value = null;
+        this._changeDetector.detectChanges();
     }
 }
