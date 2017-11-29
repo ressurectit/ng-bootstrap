@@ -46,9 +46,7 @@ export interface TypeaheadTagsCssClasses
     template:
     `<div class="{{cssClasses?.mainClass}}">
         <div *ngFor="let tag of value; let index=index" class="{{cssClasses?.tagClass}}">
-            <ng-template [ngIf]="!!tagContentTemplate" [ngIfThen]="customTagContent" [ngIfElse]="defaultTagContent"></ng-template>
-
-            <ng-template #defaultTagContent>
+            <ng-template [ngIf]="!tagContentTemplate" [ngIfElse]="customTagContent">
                 <div class="{{cssClasses?.tagContentClass}}">{{getTagDisplayedValue(tag)}}</div>
             </ng-template>
 
@@ -59,16 +57,21 @@ export interface TypeaheadTagsCssClasses
             <a class="{{cssClasses?.removeClass}}" (click)="removeTag(index)">x</a>
         </div>
 
-        <input typeahead
-               (keypress)="handleKeyPress($event.charCode || $event.keyCode)"
-               [ngClass]="cssClasses?.typeaheadClasses"
-               [placeholder]="placeholder"
-               [freeInput]="freeInput"
-               [typeaheadMaxItems]="typeaheadMaxItems"
-               [typeaheadMinLength]="typeaheadMinLength"
-               [typeaheadDisplayedProperty]="typeaheadDisplayedProperty"
-               [typeaheadDebounceTime]="typeaheadDebounceTime"
-               [typeaheadSource]="typeaheadSource">
+        <span [class.hidden]="value?.length >= maxValues">
+            <input typeahead
+                   (keypress)="handleKeyPress($event.charCode || $event.keyCode)"
+                   (keydown)="handleKeyDown($event)"
+                   [ngClass]="cssClasses?.typeaheadClasses"
+                   [placeholder]="placeholder"
+                   [freeInput]="freeInput"
+                   [typeaheadMaxItems]="typeaheadMaxItems"
+                   [typeaheadMinLength]="typeaheadMinLength"
+                   [typeaheadDisplayedProperty]="typeaheadDisplayedProperty"
+                   [typeaheadValueProperty]="typeaheadValueProperty"
+                   [typeaheadDebounceTime]="typeaheadDebounceTime"
+                   [typeaheadTemplate]="typeaheadTemplate"
+                   [typeaheadSource]="typeaheadSource">
+        </span>
     </div>`,
     styles:
     [
@@ -76,6 +79,11 @@ export interface TypeaheadTagsCssClasses
         {
             display: flex;
             flex-wrap: wrap;
+        }
+
+        .hidden
+        {
+            display: none;
         }
 
         .default-tag
@@ -111,6 +119,7 @@ export interface TypeaheadTagsCssClasses
             border: none;
             padding: 0;
             width: 300px;
+            margin-bottom: 4px;
         }`
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -134,7 +143,23 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
      */
     private _selectionChangesSubscription: Subscription;
 
+    /**
+     * Array of serialized values, used for comparison
+     */
+    private _serializedValues: string[] = [];
+
+    /**
+     * Currently set value
+     */
+    private _value: any[];
+
     //######################### public properties - input #########################
+
+    /**
+     * Function that is used for serialization
+     */
+    @Input()
+    public serializationFn: (item: any) => string;
 
     /**
      * Indication whether duplicates are allowed
@@ -143,10 +168,22 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
     public allowDuplicates: boolean = false;
 
     /**
-     * Optional confirmation key codes, tab is default and non changeable
+     * Count of maximal number of values contained in this input
      */
     @Input()
-    public confirmKeys: number[] = [13];
+    public maxValues: number = 10;
+
+    /**
+     * Indication whether item should be removed on backspace
+     */
+    @Input()
+    public removeOnBackspace: boolean = true;
+
+    // /**
+    //  * Optional confirmation key codes, tab is default and non changeable
+    //  */
+    // @Input()
+    // public confirmKeys: number[] = [13];
 
     /**
      * Placeholder for typeahead input
@@ -227,7 +264,17 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
     /**
      * Gets or sets currently set value
      */
-    public value: any[];
+    public set value(value: any[])
+    {
+        this._value = value || [];
+        this._serializedValues = [];
+
+        this._value.forEach(itm => this._serializedValues.push(this.serializationFn(itm)));
+    }
+    public get value(): any[]
+    {
+        return this._value;
+    }
     
     /**
      * Gets observable that emits changes of value
@@ -248,6 +295,8 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
             tagContentClass: 'default-tag-content',
             removeClass: 'default-remove-tag'
         };
+
+        this.serializationFn = itm => JSON.stringify(itm);
     }
 
     //######################### public methods - implementation of OnInit #########################
@@ -295,8 +344,8 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
      */
     public handleKeyPress(keyCode: number)
     {
-        //Process confirm key
-        if(this.confirmKeys.indexOf(keyCode) >= 0)
+        //Process enter confirm key
+        if(keyCode == 13)
         {
             let value = this.typeahead.value;
 
@@ -309,11 +358,29 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     /**
+     * Process key down
+     * @param {number} event Event that occured
+     */
+    public handleKeyDown(event: KeyboardEvent)
+    {
+        if(this.removeOnBackspace && event.keyCode == 8 && !(event.target as HTMLInputElement).value)
+        {
+            this.removeTag(this.value.length - 1);
+        }
+    }
+
+    /**
      * Removes tag at specified index
      * @param index Index of tag to be removed
      */
     public removeTag(index)
     {
+        if(this._serializedValues.length != this.value.length)
+        {
+            throw new Error('You cant change content of typeahead tags array value, you must change whole array itself!');
+        }
+
+        this._serializedValues.splice(index, 1);
         this.value.splice(index, 1);
         this._externalValueChangeSubject.next(this.value);
     }
@@ -352,10 +419,17 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
      */
     private _addValue(value)
     {
-        let duplicate = this.value.indexOf(value) >= 0;
+        if(this._serializedValues.length != this.value.length)
+        {
+            throw new Error('You cant change content of typeahead tags array value, you must change whole array itself!');
+        }
+
+        let serializedVal = this.serializationFn(value);
+        let duplicate = this._serializedValues.indexOf(serializedVal) >= 0;
         
         if(!duplicate || (duplicate && this.allowDuplicates))
         {
+            this._serializedValues.push(serializedVal);
             this.value.push(value);
             this.typeahead.value = null;
             this._externalValueChangeSubject.next(this.value);

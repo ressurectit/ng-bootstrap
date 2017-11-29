@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener, HostBinding} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener, HostBinding, OnDestroy} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {isPresent, isBlank, isJsObject, isFunction} from '@anglr/common';
 import {Subject} from 'rxjs/Subject';
@@ -16,7 +16,7 @@ import * as Handlebars from 'handlebars';
 {
     selector: 'input[typeahead]'
 })
-export class TypeaheadDirective implements OnInit
+export class TypeaheadDirective implements OnInit, OnDestroy
 {
     //######################### private fields #########################
 
@@ -239,6 +239,19 @@ export class TypeaheadDirective implements OnInit
             
             this._initialized = true;
             this.value = this._value;
+    }
+
+    //######################### public methods - implementation of OnDestroy #########################
+    
+    /**
+     * Called when component is destroyed
+     */
+    public ngOnDestroy()
+    {
+        if(this._isBrowser)
+        {
+            this._selector.typeahead('destroy');
+        }
     }
 
     //######################### public methods - host #########################
