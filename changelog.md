@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 4.0.5
+ - `TypeaheadTagsComponent` correctly calls `ChangeDetectorRef` for change detection
+
 ## Version 4.0.4
  - added new component `TypeaheadTagsComponent`
 

@@ -1,4 +1,4 @@
-import {Component, ChangeDetectionStrategy, Input, OnInit, OnDestroy, ViewChild, ContentChild, TemplateRef, AfterViewInit} from "@angular/core";
+import {Component, ChangeDetectionStrategy, Input, OnInit, OnDestroy, ViewChild, ContentChild, TemplateRef, AfterViewInit, ChangeDetectorRef} from "@angular/core";
 import {Utils, isString, isPresent, isJsObject, isFunction} from "@anglr/common";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
@@ -285,7 +285,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     //######################### constructor #########################
-    constructor()
+    constructor(private _changeDetector: ChangeDetectorRef)
     {
         this._cssClasses = 
         {
@@ -383,6 +383,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
         this._serializedValues.splice(index, 1);
         this.value.splice(index, 1);
         this._externalValueChangeSubject.next(this.value);
+        this._changeDetector.detectChanges();
     }
 
     /**
@@ -433,6 +434,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
             this.value.push(value);
             this.typeahead.value = null;
             this._externalValueChangeSubject.next(this.value);
+            this._changeDetector.detectChanges();
         }
     }
 }
