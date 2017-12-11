@@ -1,4 +1,5 @@
-import {Directive, OnDestroy, OnInit, ElementRef, Input} from '@angular/core';
+import {Directive, OnDestroy, OnInit, ElementRef, Input, Inject, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import * as $ from 'jquery';
 
 @Directive(
@@ -7,6 +8,13 @@ import * as $ from 'jquery';
 })
 export class BootstrapSwitchDirective implements OnInit, OnDestroy
 {
+    //######################### private fields #########################
+
+    /**
+     * Indication whether is code running in browser
+     */
+    private _isBrowser: boolean = isPlatformBrowser(this._platformId);
+
     //######################### public properties - inputs #########################
 
     /**
@@ -34,7 +42,8 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
     public offCssClass: string;
 
     //######################### constructor #########################
-    constructor(private _element: ElementRef)
+    constructor(private _element: ElementRef,
+                @Inject(PLATFORM_ID) private _platformId: Object)
     {
     }
 
@@ -67,7 +76,10 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
             options['offColor'] = this.offCssClass;
         }
 
-        $(this._element.nativeElement).bootstrapSwitch(options);
+        if(this._isBrowser)
+        {
+            $(this._element.nativeElement).bootstrapSwitch(options);
+        }
     }
 
     //######################### public methods - implementation of OnDestroy #########################
@@ -77,6 +89,9 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
      */
     public ngOnDestroy()
     {
-        $(this._element.nativeElement).bootstrapSwitch('destroy');
+        if(this._isBrowser)
+        {
+           $(this._element.nativeElement).bootstrapSwitch('destroy');
+        }
     }
 }

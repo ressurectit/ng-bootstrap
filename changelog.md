@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 4.0.7
+ - fixed `BootstrapSwitchDirective` which now supports SSR
+
 ## Version 4.0.6
  - `TypeaheadTagsComponent` now removes written text when duplicite value is found
  - `TypeaheadTagsComponent` removed outline highlight for chrome

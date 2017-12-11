@@ -1,6 +1,6 @@
 {
     "name": "@anglr/bootstrap",
-    "version": "4.0.6",
+    "version": "4.0.7",
     "description": "Angular module wrapping bootstrap components",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
