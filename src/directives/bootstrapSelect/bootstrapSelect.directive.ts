@@ -225,8 +225,7 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
 
             if (isPresent(changes))
             {
-                this.selector.selectpicker("refresh");
-                this.value = this._value;
+                this.refresh();
             }
         }
     }
@@ -255,6 +254,20 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
         {
             this._contentOptionsSubscription.unsubscribe();
             this._contentOptionsSubscription = null;
+        }
+    }
+
+    //######################### public methods #########################
+
+    /**
+     * Refresh visuals of bootstrap select from current HTML <select>
+     */
+    public refresh()
+    {
+        if(this._isBrowser)
+        {
+            this.selector.selectpicker("refresh");
+            this.value = this._value;
         }
     }
 

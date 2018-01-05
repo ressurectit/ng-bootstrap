@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 4.0.8
+ - added method `refresh` to `BootstrapSelectDirective` which allows you to refresh visuals of bootstrap select from current HTML `<select>`
+
 ## Version 4.0.7
  - fixed `BootstrapSwitchDirective` which now supports SSR
 
