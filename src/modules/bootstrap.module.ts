@@ -8,6 +8,7 @@ import {BOOTSTRAP_SELECT_DIRECTIVES} from '../directives/bootstrapSelect';
 import {TYPEAHEAD_DIRECTIVES} from '../directives/typeahead';
 import {BootstrapPopoverDirective, BootstrapTooltipDirective} from '../directives/misc';
 import {BootstrapSwitchDirective} from '../directives/bootstrapSwitch/bootstrapSwitch.directive';
+import {BootstrapSwitchControlValueAccessor} from '../directives/bootstrapSwitch/bootstrapSwitchControlValueAccessor.directive';
 import {TypeaheadTagsComponent, TypeaheadTagsControlValueAccessor} from '../components';
 
 /**
@@ -15,7 +16,10 @@ import {TypeaheadTagsComponent, TypeaheadTagsControlValueAccessor} from '../comp
  */
 @NgModule(
 {
-    imports: [CommonModule],
+    imports:
+    [
+        CommonModule
+    ],
     declarations: 
     [
         DialogComponent,
@@ -26,6 +30,7 @@ import {TypeaheadTagsComponent, TypeaheadTagsControlValueAccessor} from '../comp
         BootstrapPopoverDirective,
         BootstrapTooltipDirective,
         BootstrapSwitchDirective,
+        BootstrapSwitchControlValueAccessor,
         TypeaheadTagsComponent,
         TypeaheadTagsControlValueAccessor
     ],
@@ -39,6 +44,7 @@ import {TypeaheadTagsComponent, TypeaheadTagsControlValueAccessor} from '../comp
         BootstrapPopoverDirective,
         BootstrapTooltipDirective,
         BootstrapSwitchDirective,
+        BootstrapSwitchControlValueAccessor,
         TypeaheadTagsComponent,
         TypeaheadTagsControlValueAccessor
     ]
