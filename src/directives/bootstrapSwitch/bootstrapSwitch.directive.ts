@@ -1,4 +1,7 @@
-import {Directive, ChangeDetectionStrategy, OnDestroy, OnInit, ElementRef, Input} from '@angular/core';
+import {Directive, OnDestroy, OnInit, ElementRef, Input, PLATFORM_ID, Inject} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 import * as $ from 'jquery';
 
 @Directive(
@@ -7,6 +10,50 @@ import * as $ from 'jquery';
 })
 export class BootstrapSwitchDirective implements OnInit, OnDestroy
 {
+    //######################### private fields #########################
+
+    /**
+     * Current value of switch
+     */
+    private _value: boolean = false;
+
+    /**
+     * Indication whether is code running in browser
+     */
+    private _isBrowser: boolean = isPlatformBrowser(this._platformId);
+
+    /**
+     * Subject that is used for emitting changed values
+     */
+    private _valueChangedSubject: Subject<boolean> = new Subject<boolean>();
+
+    //######################### public properties #########################
+
+    /**
+     * Gets or sets current value of switch
+     */
+    public get value(): boolean
+    {
+        return this._value;
+    }
+    public set value(value: boolean)
+    {
+        this._value = value || false;
+
+        if(this._isBrowser)
+        {
+            $(this._element.nativeElement).bootstrapSwitch('state', this._value, true);
+        }
+    }
+
+    /**
+     * Gets observable that is trigerred when value changed
+     */
+    public get valueChanged(): Observable<any>
+    {
+        return this._valueChangedSubject.asObservable();
+    }
+
     //######################### public properties - inputs #########################
 
     /**
@@ -34,7 +81,8 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
     public offCssClass: string;
 
     //######################### constructor #########################
-    constructor(private _element: ElementRef)
+    constructor(private _element: ElementRef,
+                @Inject(PLATFORM_ID) private _platformId: Object)
     {
     }
 
@@ -45,7 +93,13 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
      */
     public ngOnInit()
     {
-        let options = {};
+        let options = 
+        {
+            'onSwitchChange': (_event, state) =>
+            {
+                this._valueChangedSubject.next(state);
+            }
+        };
 
         if(this.onText)
         {

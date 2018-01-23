@@ -1,60 +1,52 @@
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {forwardRef, ExistingProvider, Directive, OnDestroy} from '@angular/core';
 import {isBlank} from '@anglr/common';
-import {BootstrapSelectDirective} from './bootstrapSelect.directive';
-import {BootstrapSelectOptionDirective} from './bootstrapSelectOption.directive';
 import {Subscription} from 'rxjs/Subscription';
+
+import {BootstrapSwitchDirective} from './bootstrapSwitch.directive';
 
 const BOOTSTRAP_SELECT_VALUE_ACCESSOR: ExistingProvider =
 {
     provide: NG_VALUE_ACCESSOR, 
-    useExisting: forwardRef(() => BootstrapSelectControlValueAccessor), 
+    useExisting: forwardRef(() => BootstrapSwitchControlValueAccessor), 
     multi: true
 };
 
 /**
- * Control value accessor for BootstrapSelectDirective
+ * Value accessor for BootstrapSwitchDirective
  */
 @Directive(
 {
-    selector: 'select.selectpicker[formControlName],select.selectpicker[formControl],select.selectpicker[ngModel]',
+    selector: 'input[type="checkbox"][bootstrap-switch][formControlName],input[type="checkbox"][bootstrap-switch][formControl],input[type="checkbox"][bootstrap-switch][ngModel],input[type="radio"][bootstrap-switch][formControlName],input[type="radio"][bootstrap-switch][formControl],input[type="radio"][bootstrap-switch][ngModel]',
     providers: [BOOTSTRAP_SELECT_VALUE_ACCESSOR]
 })
-export class BootstrapSelectControlValueAccessor implements ControlValueAccessor, OnDestroy
+export class BootstrapSwitchControlValueAccessor implements ControlValueAccessor, OnDestroy
 {
     //######################### private fields #########################
     
     /**
-     * Subscription that looks for changes of select
+     * Subscription that looks for changes of switch
      */
     private _changeSubscription: Subscription = null;
     
-    //######################### public properties #########################
-
-    /**
-     * Currently set value
-     */
-    public value: any;
-    
     //######################### constructor #########################
-    constructor(private _select: BootstrapSelectDirective)
+    constructor(private _switch: BootstrapSwitchDirective)
     {
     }
 
     //######################### public methods - implementation of ControlValueAccessor #########################
 
     /**
-     * Sets value to select
+     * Sets value to switch
      */
     public writeValue(value: any): void
     {
         if(isBlank(value))
         {
-            value = "";
+            value = false;
         }
         
-        this.value;
-        this._select.value = value;
+        this._switch.value = value;
     }
 
     /**
@@ -62,10 +54,8 @@ export class BootstrapSelectControlValueAccessor implements ControlValueAccessor
      */
     public registerOnChange(fn: (data: any) => any): void
     {
-        this._changeSubscription = this._select.selectChanged.subscribe(value =>
+        this._changeSubscription = this._switch.valueChanged.subscribe(value =>
         {
-            this.value = value;
-            
             fn(value);
         });
     }
@@ -91,5 +81,3 @@ export class BootstrapSelectControlValueAccessor implements ControlValueAccessor
         }
     }
 }
-
-export const BOOTSTRAP_SELECT_DIRECTIVES = [BootstrapSelectControlValueAccessor, BootstrapSelectDirective, BootstrapSelectOptionDirective];
