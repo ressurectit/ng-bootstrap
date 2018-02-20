@@ -271,6 +271,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
         this._serializedValues = [];
 
         this._value.forEach(itm => this._serializedValues.push(this.serializationFn(itm)));
+        this._changeDetector.detectChanges();
     }
     public get value(): any[]
     {

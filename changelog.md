@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 4.0.10
+ - fixed changing value of `TypeaheadTagsComponent` from code, which missed call of *change detection*
+
+## Version 4.0.9
+ - fixed bootstrap switch, now working correctly
+
 ## Version 4.0.8
  - added method `refresh` to `BootstrapSelectDirective` which allows you to refresh visuals of bootstrap select from current HTML `<select>`
 
