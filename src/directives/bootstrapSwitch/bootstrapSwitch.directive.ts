@@ -1,7 +1,6 @@
 import {Directive, OnDestroy, OnInit, ElementRef, Input, PLATFORM_ID, Inject} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import {Subject, Observable} from 'rxjs';
 import * as $ from 'jquery';
 
 @Directive(

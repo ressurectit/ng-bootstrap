@@ -1,8 +1,7 @@
 import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener, HostBinding, OnDestroy} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {isPresent, isBlank, isJsObject, isFunction} from '@anglr/common';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import {Subject, Observable} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import * as $ from 'jquery';
 import * as Handlebars from 'handlebars';
@@ -228,11 +227,11 @@ export class TypeaheadDirective implements OnInit, OnDestroy
                 minLength: this.typeaheadMinLength,
                 highlight: true
             }, datasetOptions)
-            .on("typeahead:select", (event, suggestion) =>
+            .on("typeahead:select", (_event, suggestion) =>
             {
                 this._setValue(suggestion);
             })
-            .on("typeahead:autocomplete", (event, suggestion) =>
+            .on("typeahead:autocomplete", (_event, suggestion) =>
             {
                 this._setValue(suggestion);
             });

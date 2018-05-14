@@ -1,6 +1,6 @@
 import {Directive, ExistingProvider, forwardRef, OnDestroy} from '@angular/core';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 import {TypeaheadTagsComponent} from './typeaheadTags.component';
 

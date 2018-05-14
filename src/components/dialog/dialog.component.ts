@@ -198,7 +198,7 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
     {
         if(this._isBrowser)
         {
-            $(this.dialogSelector).on('hidden.bs.modal', e => 
+            $(this.dialogSelector).on('hidden.bs.modal', () => 
             {
                 this._visible = false
                 this.visibleChange.emit(false);

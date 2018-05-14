@@ -1,9 +1,10 @@
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {forwardRef, ExistingProvider, Directive, OnDestroy} from '@angular/core';
 import {isBlank} from '@anglr/common';
+import {Subscription} from 'rxjs';
+
 import {BootstrapSelectDirective} from './bootstrapSelect.directive';
 import {BootstrapSelectOptionDirective} from './bootstrapSelectOption.directive';
-import {Subscription} from 'rxjs/Subscription';
 
 const BOOTSTRAP_SELECT_VALUE_ACCESSOR: ExistingProvider =
 {
@@ -73,7 +74,7 @@ export class BootstrapSelectControlValueAccessor implements ControlValueAccessor
     /**
      * Registers callback that is called when select is closed
      */
-    public registerOnTouched(fn: () => any): void
+    public registerOnTouched(): void
     {
     }
     

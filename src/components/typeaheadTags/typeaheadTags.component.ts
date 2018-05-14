@@ -1,8 +1,6 @@
 import {Component, ChangeDetectionStrategy, Input, OnInit, OnDestroy, ViewChild, ContentChild, TemplateRef, AfterViewInit, ChangeDetectorRef} from "@angular/core";
 import {Utils, isString, isPresent, isJsObject, isFunction} from "@anglr/common";
-import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject";
-import {Subscription} from "rxjs/Subscription";
+import {Subject, Observable, Subscription} from "rxjs";
 
 import {TypeaheadDirective} from "../../directives/typeahead";
 

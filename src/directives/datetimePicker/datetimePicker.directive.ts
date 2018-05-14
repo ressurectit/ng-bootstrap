@@ -1,13 +1,10 @@
 import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, EventEmitter, Output, Inject, PLATFORM_ID} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {GlobalizationService} from '@anglr/common';
-
+import {Observable, Subject, Subscription} from 'rxjs';
 import {Datetimepicker} from 'eonasdan-bootstrap-datetimepicker';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
-
 import * as $ from 'jquery';
+
 
 /**
  * Directive that is used for creating date/datetimepicker

@@ -1,7 +1,7 @@
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {forwardRef, ExistingProvider, Directive, OnDestroy} from '@angular/core';
 import {isBlank} from '@anglr/common';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 import {BootstrapSwitchDirective} from './bootstrapSwitch.directive';
 
@@ -63,7 +63,7 @@ export class BootstrapSwitchControlValueAccessor implements ControlValueAccessor
     /**
      * Registers callback that is called when select is closed
      */
-    public registerOnTouched(fn: () => any): void
+    public registerOnTouched(): void
     {
     }
     
