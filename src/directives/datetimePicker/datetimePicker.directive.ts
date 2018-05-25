@@ -165,12 +165,12 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
             return;
         }
 
-        this.locale = globalizationService.getLocale();
+        this.locale = globalizationService.locale;
 
-        this._globalizationSubscription = globalizationService.getLocaleChange().subscribe(locale =>
+        this._globalizationSubscription = globalizationService.localeChange.subscribe(() =>
         {
-            this.locale = locale;
-            this.pickerObj.locale(locale);
+            this.locale = globalizationService.locale;
+            this.pickerObj.locale(globalizationService.locale);
         });
 
         this.selector.datetimepicker(
