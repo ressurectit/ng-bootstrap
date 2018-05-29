@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 5.0.0
+ - stabilized for angular v6
+
 ## Version 5.0.0-beta.2
  - `@anglr/bootstrap` is now marked as *sideEffects* free
  - fixed `DatetimePickerDirective`, now is using updated version of `GlobalizationService`
