@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 4.0.11
+ - fixed setting date for `DateTimePickerDirective` if is lesser than *minDate* or greater than *maxDate*
+
 ## Version 4.0.10
  - fixed changing value of `TypeaheadTagsComponent` from code, which missed call of *change detection*
 

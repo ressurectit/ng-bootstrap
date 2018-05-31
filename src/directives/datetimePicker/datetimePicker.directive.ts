@@ -1,11 +1,11 @@
 import {Directive, ElementRef, OnInit, OnDestroy, Attribute, Input, EventEmitter, Output, Inject, PLATFORM_ID} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {GlobalizationService} from '@anglr/common';
+import {GlobalizationService, isPresent} from '@anglr/common';
 
 import {Datetimepicker} from 'eonasdan-bootstrap-datetimepicker';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import * as $ from 'jquery';
 
@@ -32,6 +32,11 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     private _value: moment.Moment;
 
     /**
+     * Indication that value was first time set
+     */
+    private _firstSetValue: boolean = false;
+
+    /**
      * Subscription for globalization changes
      */
     private _globalizationSubscription: Subscription = null;
@@ -39,7 +44,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     /**
      * Subject that is used for emitting changed values
      */
-    private _pickerChangedSubject: Subject<moment.Moment> = new Subject<moment.Moment>();
+    private _pickerChangedSubject: BehaviorSubject<moment.Moment> = new BehaviorSubject<moment.Moment>(null);
 
     //######################### public properties - input #########################
 
@@ -115,12 +120,46 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
      */
     public set value(val: any)
     {
+        let maxDate = this.pickerObj.maxDate();
+        let minDate = this.pickerObj.minDate();
+        let changed = false;
+
+        if(isPresent(val))
+        {
+            //value that is set is greater than max date
+            if(maxDate && maxDate < val)
+            {
+                val = maxDate;
+
+                changed = true;
+            }
+
+            //value that is set is lesser than min date
+            if(minDate && minDate > val)
+            {
+                val = minDate;
+
+                changed = true;
+            }
+        }
+
+        if(changed)
+        {
+            this._emitIfInternalIsSame(val);
+        }
+        else if(!this._firstSetValue)
+        {
+            this._pickerChangedSubject.next(val);
+        }
+
         this._value = val;
 
         if(this._isBrowser)
         {
             this.pickerObj.date(val);
         }
+
+        this._firstSetValue = true;
     }
     public get value(): any
     {
@@ -253,6 +292,21 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         if(this._isBrowser)
         {
             this.pickerObj.toggle();
+        }
+    }
+
+    //######################### private methods #########################
+
+    /**
+     * Emits internal change of value based on mix/max date
+     * @param val Current value that is checked
+     */
+    private _emitIfInternalIsSame(val: moment.Moment)
+    {
+        if(val.diff(this.pickerObj.date()) === 0)
+        {
+            this._pickerChangedSubject.next(val);
+            this.dateChange.emit(val);
         }
     }
 }
