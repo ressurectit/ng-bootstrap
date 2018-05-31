@@ -40,13 +40,6 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
      */
     private _changeSubscription: Subscription = null;
 
-    //######################### public properties #########################
-
-    /**
-     * Currently set value
-     */
-    public value: moment.Moment;
-
     //######################### constructor #########################
     constructor(private _picker: DatetimePickerDirective)
     {
@@ -64,7 +57,6 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
             value = null;
         }
         
-        this.value;
         this._picker.value = value;
     }
 
@@ -75,8 +67,6 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
     {
         this._changeSubscription = this._picker.pickerChanged.subscribe(value =>
         {
-            this.value = value;
-            
             fn(value);
         });
     }

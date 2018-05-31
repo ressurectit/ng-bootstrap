@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 5.0.1
+ - fixed setting date for `DateTimePickerDirective` if is lesser than *minDate* or greater than *maxDate*
+
+## Version 4.0.11
+ - fixed setting date for `DateTimePickerDirective` if is lesser than *minDate* or greater than *maxDate*
+
 ## Version 5.0.0
  - stabilized for angular v6
 
