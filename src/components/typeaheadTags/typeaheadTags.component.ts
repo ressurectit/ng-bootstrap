@@ -57,6 +57,7 @@ export interface TypeaheadTagsCssClasses
 
         <span [class.hidden]="value?.length >= maxValues">
             <input typeahead
+                   [attr.disabled]="tagsDisabled ? 'disabled' : null"
                    (keypress)="handleKeyPress($event.charCode || $event.keyCode)"
                    (keydown)="handleKeyDown($event)"
                    [ngClass]="cssClasses?.typeaheadClasses"
@@ -121,6 +122,10 @@ export interface TypeaheadTagsCssClasses
             margin-bottom: 4px;
         }`
     ],
+    host:
+    {
+        "[attr.disabled]": "tagsDisabled ? 'disabled' : null"
+    },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
@@ -243,6 +248,12 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
      */
     @Input()
     public typeaheadSource: ((query: any) => Observable<any>)|null = null;
+
+    /**
+     * Indication that this component should be tagsDisabled
+     */
+    @Input()
+    public tagsDisabled: boolean = false;
 
     //######################### public properties - children #########################
 
@@ -375,6 +386,11 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
      */
     public removeTag(index)
     {
+        if(this.tagsDisabled)
+        {
+            return;
+        }
+
         if(this._serializedValues.length != this.value.length)
         {
             throw new Error('You cant change content of typeahead tags array value, you must change whole array itself!');
