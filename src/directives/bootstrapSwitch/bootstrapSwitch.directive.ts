@@ -1,6 +1,6 @@
-import {Directive, OnDestroy, OnInit, ElementRef, Input, PLATFORM_ID, Inject} from '@angular/core';
+import {Directive, OnDestroy, OnInit, ElementRef, Input, PLATFORM_ID, Inject, EventEmitter, Output} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {Subject, Observable} from 'rxjs';
+import {isBlank} from '@anglr/common';
 import * as $ from 'jquery';
 
 @Directive(
@@ -12,25 +12,26 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
     //######################### private fields #########################
 
     /**
+     * Indication whether is application initialized
+     */
+    private _initialized = false;
+
+    /**
      * Current value of switch
      */
-    private _value: boolean = false;
+    private _value: boolean;
 
     /**
      * Indication whether is code running in browser
      */
     private _isBrowser: boolean = isPlatformBrowser(this._platformId);
 
-    /**
-     * Subject that is used for emitting changed values
-     */
-    private _valueChangedSubject: Subject<boolean> = new Subject<boolean>();
-
-    //######################### public properties #########################
+    //######################### public properties - inputs #########################
 
     /**
      * Gets or sets current value of switch
      */
+    @Input()
     public get value(): boolean
     {
         return this._value;
@@ -39,21 +40,11 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
     {
         this._value = value || false;
 
-        if(this._isBrowser)
+        if(this._initialized && this._isBrowser)
         {
             $(this._element.nativeElement).bootstrapSwitch('state', this._value, true);
         }
     }
-
-    /**
-     * Gets observable that is trigerred when value changed
-     */
-    public get valueChanged(): Observable<any>
-    {
-        return this._valueChangedSubject.asObservable();
-    }
-
-    //######################### public properties - inputs #########################
 
     /**
      * Text of the left side of the switch, checkbox is checked
@@ -79,6 +70,14 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
     @Input()
     public offCssClass: string;
 
+    //######################### public properties - outputs #########################
+
+    /**
+     * Gets event emitter that is trigerred when value changes
+     */
+    @Output()
+    public valueChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     //######################### constructor #########################
     constructor(private _element: ElementRef,
                 @Inject(PLATFORM_ID) private _platformId: Object)
@@ -96,7 +95,7 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
         {
             'onSwitchChange': (_event, state) =>
             {
-                this._valueChangedSubject.next(state);
+                this.valueChanged.emit(state);
             }
         };
 
@@ -120,10 +119,21 @@ export class BootstrapSwitchDirective implements OnInit, OnDestroy
             options['offColor'] = this.offCssClass;
         }
 
+        if(isBlank(this._value))
+        {
+            this._value = false;
+        }
+        else
+        {
+            options['state'] = this._value;
+        }
+
         if(this._isBrowser)
         {
             $(this._element.nativeElement).bootstrapSwitch(options);
         }
+
+        this._initialized = true;
     }
 
     //######################### public methods - implementation of OnDestroy #########################

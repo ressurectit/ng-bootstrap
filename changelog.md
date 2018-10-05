@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 5.0.2
+ - bootstrap switch now supports direct binding using `value` and `valueChanged`
+
 ## Version 5.0.1
  - fixed setting date for `DateTimePickerDirective` if is lesser than *minDate* or greater than *maxDate*
 
