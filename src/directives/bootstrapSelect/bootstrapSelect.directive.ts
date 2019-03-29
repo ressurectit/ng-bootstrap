@@ -12,7 +12,7 @@ import {Directive,
         PLATFORM_ID,
         IterableDiffer} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {isArray, isPresent, isBlank} from '@anglr/common';
+import {isArray, isPresent, isBlank} from '@jscrpt/common';
 import {Subscription, Subject, Observable} from 'rxjs';
 import {BootstrapSelectOptionDirective} from './bootstrapSelectOption.directive';
 import * as $ from 'jquery';

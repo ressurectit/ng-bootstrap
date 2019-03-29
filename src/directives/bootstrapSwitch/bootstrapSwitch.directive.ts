@@ -1,6 +1,6 @@
 import {Directive, OnDestroy, OnInit, ElementRef, Input, PLATFORM_ID, Inject, EventEmitter, Output} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {isBlank} from '@anglr/common';
+import {isBlank} from '@jscrpt/common';
 import * as $ from 'jquery';
 
 @Directive(

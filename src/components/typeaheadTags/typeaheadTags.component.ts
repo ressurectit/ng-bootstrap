@@ -1,5 +1,5 @@
 import {Component, ChangeDetectionStrategy, Input, OnInit, OnDestroy, ViewChild, ContentChild, TemplateRef, AfterViewInit, ChangeDetectorRef} from "@angular/core";
-import {Utils, isString, isPresent, isJsObject, isFunction} from "@anglr/common";
+import {extend, isString, isPresent, isJsObject, isFunction} from "@jscrpt/common";
 import {Subject, Observable, Subscription} from "rxjs";
 
 import {TypeaheadDirective} from "../../directives/typeahead";
@@ -317,7 +317,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
      */
     public ngOnInit()
     {
-        this.cssClasses = Utils.common.extend(this._cssClasses, this.cssClasses);
+        this.cssClasses = extend(this._cssClasses, this.cssClasses);
     }
 
     //######################### public methods - implementation of AfterViewInit #########################
@@ -351,7 +351,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
     /**
      * Process confirmation keys
-     * @param {number} keyCode Code of key that was pressed
+     * @param keyCode Code of key that was pressed
      */
     public handleKeyPress(keyCode: number)
     {
@@ -370,7 +370,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
     /**
      * Process key down
-     * @param {number} event Event that occured
+     * @param event Event that occured
      */
     public handleKeyDown(event: KeyboardEvent)
     {

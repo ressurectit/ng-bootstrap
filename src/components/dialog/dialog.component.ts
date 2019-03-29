@@ -1,6 +1,6 @@
 import {Component, Input, Output, OnInit, OnDestroy, AfterViewInit, EventEmitter, Inject, PLATFORM_ID} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {isBlank} from '@anglr/common';
+import {isBlank} from '@jscrpt/common';
 import * as $ from 'jquery';
 
 /**

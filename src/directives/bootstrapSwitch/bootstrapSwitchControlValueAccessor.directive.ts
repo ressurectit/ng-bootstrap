@@ -1,6 +1,6 @@
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {forwardRef, ExistingProvider, Directive, OnDestroy} from '@angular/core';
-import {isBlank} from '@anglr/common';
+import {isBlank} from '@jscrpt/common';
 import {Subscription} from 'rxjs';
 
 import {BootstrapSwitchDirective} from './bootstrapSwitch.directive';

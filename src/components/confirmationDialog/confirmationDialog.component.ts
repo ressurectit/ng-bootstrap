@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, TemplateRef, PLATFORM_ID, Inject, ContentChild} from '@angular/core';
 import {isPlatformBrowser} from "@angular/common";
-import {Utils, isPresent} from '@anglr/common';
+import {generateId, isPresent} from '@jscrpt/common';
 
 /**
  * Bootstrap modal confirmation dialog component
@@ -175,14 +175,14 @@ export class ConfirmationDialogComponent
     //######################### constructor #########################
     constructor(@Inject(PLATFORM_ID) private _platformId: Object)
     {
-        this.id = Utils.common.generateId(12);
+        this.id = generateId(12);
     }
     
     //######################### public methods #########################
     
     /**
      * Shows confirmation dialog and stores data that are passed to confirmed event
-     * @param  {any} data
+     * @param data
      */
     public showConfirmation(data: any)
     {

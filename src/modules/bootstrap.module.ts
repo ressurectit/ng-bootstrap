@@ -3,13 +3,14 @@ import {NgModule} from '@angular/core';
 
 import {DialogComponent} from '../components/dialog';
 import {ConfirmationDialogComponent} from '../components/confirmationDialog';
+import {TypeaheadTagsComponent} from '../components/typeaheadTags/typeaheadTags.component';
+import {TypeaheadTagsControlValueAccessor} from '../components/typeaheadTags/typeaheadTagsControlValueAccessor.directive';
 import {DATETIME_PICKER_DIRECTIVES} from '../directives/datetimePicker';
 import {BOOTSTRAP_SELECT_DIRECTIVES} from '../directives/bootstrapSelect';
 import {TYPEAHEAD_DIRECTIVES} from '../directives/typeahead';
 import {BootstrapPopoverDirective, BootstrapTooltipDirective} from '../directives/misc';
 import {BootstrapSwitchDirective} from '../directives/bootstrapSwitch/bootstrapSwitch.directive';
 import {BootstrapSwitchControlValueAccessor} from '../directives/bootstrapSwitch/bootstrapSwitchControlValueAccessor.directive';
-import {TypeaheadTagsComponent, TypeaheadTagsControlValueAccessor} from '../components';
 
 /**
  * Module for bootstrap components

@@ -1,6 +1,6 @@
 import {Directive,
         Input} from '@angular/core';
-import {isPresent, isBlank} from '@anglr/common';
+import {isPresent, isBlank} from '@jscrpt/common';
 
 /**
  * Directive that wraps options for bootstrap select
@@ -109,7 +109,7 @@ export class BootstrapSelectOptionDirective
     
     /**
      * Compares provided value with current option value
-     * @param  {any} val Value to be compared
+     * @param val Value to be compared
      * @returns boolean
      */
     public isEqual(val: any): boolean

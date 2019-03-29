@@ -1,6 +1,6 @@
 import {Directive, ElementRef, OnInit, Input, PLATFORM_ID, Inject, HostListener, HostBinding, OnDestroy} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {isPresent, isBlank, isJsObject, isFunction} from '@anglr/common';
+import {isPresent, isBlank, isJsObject, isFunction} from '@jscrpt/common';
 import {Subject, Observable} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import * as $ from 'jquery';
@@ -257,7 +257,7 @@ export class TypeaheadDirective implements OnInit, OnDestroy
 
     /**
      * Called when 'input' event occurs on input element
-     * @param {string} value Changed value
+     * @param value Changed value
      */
     @HostListener('input', ['$event.target.value'])
     public inputChange(value: string)
@@ -297,7 +297,7 @@ export class TypeaheadDirective implements OnInit, OnDestroy
 
     /**
      * Converts val from suggestion to value of directive
-     * @param  {any} val Val to be converted
+     * @param val Val to be converted
      */
     private _toValue(val: any)
     {
