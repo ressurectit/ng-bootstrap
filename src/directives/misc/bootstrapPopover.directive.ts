@@ -35,7 +35,7 @@ export class BootstrapPopoverDirective implements AfterViewInit, OnDestroy
      * Gets or sets popover placement location valid values (top, bottom, left, right, auto)
      */
     @Input("popoverPlacement")
-    public contentPosition: string = "auto";
+    public contentPosition: BootstrapPlacement = "auto";
 
     //######################### constructor #########################   
     constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: Object)

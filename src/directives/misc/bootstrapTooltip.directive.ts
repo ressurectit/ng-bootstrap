@@ -70,7 +70,7 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
      * Manual cannot be combined with any other trigger.
      */
     @Input()
-    public trigger: string = "hover";
+    public trigger: BootstrapTrigger = "hover";
     
     //######################### constructor #########################
     constructor(element: ElementRef, @Inject(PLATFORM_ID) platformId: Object)
@@ -122,7 +122,7 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
         
         if(this._initialized)
         {
-            this._jqueryElement.tooltip('fixTitle');
+            this._jqueryElement.tooltip(<any>'fixTitle');
         }
         else
         {

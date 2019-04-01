@@ -83,7 +83,7 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
      * Alternatively, specify 'static' for a backdrop which doesn't close the modal on click.
      */
     @Input()
-    public backdrop: boolean | string = true;
+    public backdrop: boolean | "static" = true;
 
     /**
      * Bootstrap modal dialog keyboard property wrapper.

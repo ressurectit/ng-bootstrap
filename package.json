@@ -63,7 +63,7 @@
         "@types/bootstrap": "~3.3.36",
         "@types/eonasdan-bootstrap-datetimepicker": "~4.17.26",
         "@types/typeahead": "~0.11.32",
-        "@types/handlebars": "~4.0.37",
+        "@types/handlebars": "~4.1.0",
         "@types/bootstrap-switch": "0.0.31",
         "@angular/router": "^8.0.0-beta.9",
         "@angular/compiler-cli": "^8.0.0-beta.9",
