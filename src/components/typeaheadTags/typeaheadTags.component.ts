@@ -260,13 +260,13 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
     /**
      * Typeahead directive instance
      */
-    @ViewChild(TypeaheadDirective)
+    @ViewChild(TypeaheadDirective, {static: false})
     public typeahead: TypeaheadDirective;
 
     /**
      * Custom template for tag content
      */
-    @ContentChild(TemplateRef)
+    @ContentChild(TemplateRef, {static: false})
     public tagContentTemplate: TemplateRef<any>;
 
     //######################### public properties #########################

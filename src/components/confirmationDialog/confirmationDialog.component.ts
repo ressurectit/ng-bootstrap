@@ -72,7 +72,7 @@ export class ConfirmationDialogComponent
      * 
      * @internal
      */
-    @ViewChild('confirmButton')
+    @ViewChild('confirmButton', {static: false})
     public confirmButton: ElementRef;
 
     /**
@@ -80,7 +80,7 @@ export class ConfirmationDialogComponent
      * 
      * @internal
      */
-    @ViewChild('cancelButton')
+    @ViewChild('cancelButton', {static: false})
     public cancelButton: ElementRef;
 
     //######################### public properties - inputs #########################
@@ -113,7 +113,7 @@ export class ConfirmationDialogComponent
      * Confirmation dialog body template
      */
     @Input()
-    @ContentChild(TemplateRef)
+    @ContentChild(TemplateRef, {static: false})
     template: TemplateRef<any>;
 
     /**
