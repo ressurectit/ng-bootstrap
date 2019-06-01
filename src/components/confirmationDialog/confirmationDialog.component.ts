@@ -83,6 +83,12 @@ export class ConfirmationDialogComponent
     @ViewChild('cancelButton', {static: false})
     public cancelButton: ElementRef;
 
+    /**
+     * Confirmation dialog body template
+     */
+    @ContentChild(TemplateRef, {static: false})
+    public template: TemplateRef<any>;
+
     //######################### public properties - inputs #########################
 
     /**
@@ -108,13 +114,6 @@ export class ConfirmationDialogComponent
      */
     @Input()
     public confirmationTitle: string = "";
-
-    /**
-     * Confirmation dialog body template
-     */
-    @Input()
-    @ContentChild(TemplateRef, {static: false})
-    template: TemplateRef<any>;
 
     /**
      * Modal dialog extra css classes

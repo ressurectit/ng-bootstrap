@@ -5,6 +5,7 @@
  - Angular IVY ready (APF compliant package)
  - added support for ES2015 compilation
  - Angular 8
+ - `ConfirmationDialogComponent` template can be specified only using `ContentChild`
 
 ## Version 5.0.2
  - bootstrap switch now supports direct binding using `value` and `valueChanged`
