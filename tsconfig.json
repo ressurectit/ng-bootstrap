@@ -12,18 +12,25 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "strictNullChecks": false,
-        "lib": 
+        "baseUrl": ".",
+        "paths":
+        {
+            "@anglr/bootstrap/core": ["./core"],
+            "@anglr/bootstrap/datetimepicker": ["./datetimepicker"],
+            "@anglr/bootstrap/select": ["./select"],
+            "@anglr/bootstrap/switch": ["./switch"],
+            "@anglr/bootstrap/typeahead": ["./typeahead"]
+        },
+        "lib":
         [
-            "es2016", 
+            "es2016",
             "dom"
         ],
         "types": 
         [
-            "jquery",
-            "bootstrap",
             "moment",
+            "bootstrap",
             "bootstrap-select",
-            "eonasdan-bootstrap-datetimepicker",
             "typeahead",
             "handlebars",
             "bootstrap-switch"
@@ -33,7 +40,7 @@
             "node_modules/@types",
             "node_modules/@anglr/types"
         ],
-        "plugins": 
+        "plugins":
         [
             {
                 "name": "@angular/language-service"
@@ -46,7 +53,7 @@
         "dist",
         "karma-test-shim.ts"
     ],
-    "angularCompilerOptions": 
+    "angularCompilerOptions":
     {
         "fullTemplateTypeCheck": true
     }

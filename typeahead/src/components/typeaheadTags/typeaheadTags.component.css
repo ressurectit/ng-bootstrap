@@ -1,0 +1,47 @@
+.default-main
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.default-tag
+{
+    margin-right: 6px;
+    margin-bottom: 4px;
+    background-color: #337ab7;
+    padding: 0 4px;
+    border-radius: 4px;
+    color: #EEEEEE;
+}
+
+.default-tag-content
+{
+    display: inline-block;
+}
+
+.default-remove-tag
+{
+    cursor: pointer;
+    color: #EEEEEE;
+    font-weight: bold;
+}
+
+.default-remove-tag:hover
+{
+    text-decoration: none;
+    color: #D0D0D0;
+}
+
+.default-typeahead
+{
+    border: none;
+    outline: none;
+    padding: 0;
+    width: 300px;
+    margin-bottom: 4px;
+}

@@ -1,0 +1,8 @@
+{
+    "name": "@anglr/bootstrap/datetimepicker",
+    "module": "./dist/es5/datetimepicker/datetimepicker.js",
+    "esm2015": "./dist/es2015/datetimepicker/datetimepicker.js",
+    "esm5": "./dist/es5/datetimepicker/datetimepicker.js",
+    "typings": "./datetimepicker.d.ts",
+    "sideEffects": false
+}

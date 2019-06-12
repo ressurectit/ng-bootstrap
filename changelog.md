@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 6.1.0
+
+ - complete refactoring of module, split into *subpackages* according its dependencies
+ - now it is not required to use all external bootstrap libraries if used with *subpackages*
+ - all *core* bootstrap dependent code moved into `@anglr/bootstrap/core`
+    - that means `ConfirmationDialogComponent`, `DialogComponent`, `BootstrapPopoverDirective`, `BootstrapTooltipDirective`
+    - created new module for all of these `BootstrapCoreModule`
+- all *datetimepicker* bootstrap dependent code moved into `@anglr/bootstrap/datetimepicker`
+    - that means `DatetimePickerDirective`, `DatetimePickerControlValueAccessor`
+    - created new module for all of these `DatetimepickerModule`
+- all *select* bootstrap dependent code moved into `@anglr/bootstrap/select`
+    - that means `BootstrapSelectDirective`, `BootstrapSelectControlValueAccessor`, `BootstrapSelectOptionDirective`
+    - created new module for all of these `SelectModule`
+- all *switch* bootstrap dependent code moved into `@anglr/bootstrap/switch`
+    - that means `BootstrapSwitchDirective`, `BootstrapSwitchControlValueAccessor`
+    - created new module for all of these `SwitchModule`
+- all *typeahead* bootstrap dependent code moved into `@anglr/bootstrap/typeahead`
+    - that means `TypeaheadTagsComponent`, `TypeaheadDirective`, `TypeaheadControlValueAccessor`, `TypeaheadTagsControlValueAccessor`
+    - created new modules for all of these `TypeaheadModule`, respectively `TypeaheadTagsModule`
+
 ## Version 6.0.0
 
  - Angular IVY ready (APF compliant package)

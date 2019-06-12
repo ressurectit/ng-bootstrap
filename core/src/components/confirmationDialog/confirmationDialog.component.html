@@ -1,0 +1,23 @@
+<modal-dialog [dialogId]="id"
+              [(visible)]="visible"
+              [dialogTitle]="confirmationTitle"
+              [dialogCss]="dialogCss">
+    <div class="dialog-body">
+        <ng-template #defaultTemplate>
+            <div [innerHTML]="confirmationText"></div>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="template || defaultTemplate"></ng-container>
+    </div>
+
+    <div class="dialog-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal" #cancelButton>
+            <span class="glyphicon glyphicon-ban-circle"></span>
+            <span>{{dialogCancelText}}</span>
+        </button>
+
+        <button type="button" class="btn btn-primary" [ngClass]="_confirmButtonType" (click)="confirm()" #confirmButton>
+            <span class="glyphicon glyphicon-ok"></span>
+            <span>{{dialogConfirmText}}</span>
+        </button>
+    </div>
+</modal-dialog>

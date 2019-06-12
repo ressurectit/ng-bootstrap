@@ -14,6 +14,11 @@ ngv.config.json
 *.ts
 !*.d.ts
 !/src/**/*.d.ts
+!/core/**/*.d.ts
+!/datetimepicker/**/*.d.ts
+!/switch/**/*.d.ts
+!/select/**/*.d.ts
+!/typeahead/**/*.d.ts
 
 *.log
 *.spec.js

@@ -1,0 +1,30 @@
+<div class="{{cssClasses?.mainClass}}">
+    <div *ngFor="let tag of value; let index=index" class="{{cssClasses?.tagClass}}">
+        <ng-template [ngIf]="!tagContentTemplate" [ngIfElse]="customTagContent">
+            <div class="{{cssClasses?.tagContentClass}}">{{getTagDisplayedValue(tag)}}</div>
+        </ng-template>
+
+        <ng-template #customTagContent>
+            <ng-container *ngTemplateOutlet="tagContentTemplate; context: {$implicit: tag}"></ng-container>
+        </ng-template>
+
+        <a class="{{cssClasses?.removeClass}}" (click)="removeTag(index)">x</a>
+    </div>
+
+    <span [class.hidden]="value?.length >= maxValues">
+        <input typeahead
+               [attr.disabled]="tagsDisabled ? 'disabled' : null"
+               (keypress)="handleKeyPress($event.charCode || $event.keyCode)"
+               (keydown)="handleKeyDown($event)"
+               [ngClass]="cssClasses?.typeaheadClasses"
+               [placeholder]="placeholder"
+               [freeInput]="freeInput"
+               [typeaheadMaxItems]="typeaheadMaxItems"
+               [typeaheadMinLength]="typeaheadMinLength"
+               [typeaheadDisplayedProperty]="typeaheadDisplayedProperty"
+               [typeaheadValueProperty]="typeaheadValueProperty"
+               [typeaheadDebounceTime]="typeaheadDebounceTime"
+               [typeaheadTemplate]="typeaheadTemplate"
+               [typeaheadSource]="typeaheadSource">
+    </span>
+</div>

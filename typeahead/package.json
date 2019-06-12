@@ -1,0 +1,8 @@
+{
+    "name": "@anglr/bootstrap/typeahead",
+    "module": "./dist/es5/typeahead/typeahead.js",
+    "esm2015": "./dist/es2015/typeahead/typeahead.js",
+    "esm5": "./dist/es5/typeahead/typeahead.js",
+    "typings": "./typeahead.d.ts",
+    "sideEffects": false
+}

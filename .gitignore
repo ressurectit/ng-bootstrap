@@ -4,6 +4,17 @@
 /tests
 /src/**/*.d.ts
 /src/**/*.json
+/datetimepicker/**/*.d.ts
+/datetimepicker/**/*.json
+/core/**/*.d.ts
+/core/**/*.json
+/switch/**/*.d.ts
+/switch/**/*.json
+/select/**/*.d.ts
+/select/**/*.json
+/typeahead/**/*.d.ts
+/typeahead/**/*.json
+/*/dist
 /*.d.ts
 /*.metadata.json
 
