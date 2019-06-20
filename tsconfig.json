@@ -28,7 +28,6 @@
         ],
         "types": 
         [
-            "moment",
             "bootstrap",
             "bootstrap-select",
             "typeahead",

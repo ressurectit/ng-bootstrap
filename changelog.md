@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 6.1.1
+
+ - fixed dependency on `moment`, now using original typings
+
 ## Version 6.1.0
 
  - complete refactoring of module, split into *subpackages* according its dependencies
