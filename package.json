@@ -1,6 +1,6 @@
 {
     "name": "@anglr/bootstrap",
-    "version": "6.1.1",
+    "version": "0.0.0-placeholder",
     "description": "Angular module wrapping bootstrap components",
     "module": "./dist/es5/bootstrap.js",
     "esm2015": "./dist/es2015/bootstrap.js",
