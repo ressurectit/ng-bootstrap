@@ -1,6 +1,6 @@
 {
     "name": "@anglr/bootstrap",
-    "version": "0.0.0-placeholder",
+    "version": "6.1.1",
     "description": "Angular module wrapping bootstrap components",
     "module": "./dist/es5/bootstrap.js",
     "esm2015": "./dist/es2015/bootstrap.js",
@@ -32,7 +32,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/ressurectit/ng-bootstrap.git"
-    }, 
+    },
     "keywords": [
         "angular",
         "ng",

@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 6.1.2
+
+ - fixed dateTimePickerControlValueAccessor value change
+
 ## Version 6.1.1
 
  - fixed dependency on `moment`, now using original typings

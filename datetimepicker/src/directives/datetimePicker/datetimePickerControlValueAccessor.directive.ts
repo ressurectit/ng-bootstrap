@@ -40,6 +40,11 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
      */
     private _changeSubscription: Subscription = null;
 
+    /**
+     * Datepicker value
+     */
+    private _value: any;
+
     //######################### constructor #########################
     constructor(private _picker: DatetimePickerDirective)
     {
@@ -52,6 +57,8 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
      */
     public writeValue(value: any): void
     {
+        this._value = value;
+
         if(value == undefined)
         {
             value = null;
@@ -67,7 +74,11 @@ export class DatetimePickerControlValueAccessor implements ControlValueAccessor,
     {
         this._changeSubscription = this._picker.pickerChanged.subscribe(value =>
         {
-            fn(value);
+            if (this._value !== value)
+            {
+                this._value = value;
+                fn(value);
+            }
         });
     }
 
