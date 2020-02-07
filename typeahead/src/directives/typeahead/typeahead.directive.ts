@@ -257,7 +257,7 @@ export class TypeaheadDirective implements OnInit, OnDestroy
 
     /**
      * Called when 'input' event occurs on input element
-     * @param value Changed value
+     * @param value - Changed value
      */
     @HostListener('input', ['$event.target.value'])
     public inputChange(value: string)
@@ -285,7 +285,7 @@ export class TypeaheadDirective implements OnInit, OnDestroy
 
     /**
      * Sets selected value 
-     * @param suggestion Suggestion that was selected or auto completed
+     * @param suggestion - Suggestion that was selected or auto completed
      */
     private _setValue(suggestion)
     {
@@ -297,7 +297,7 @@ export class TypeaheadDirective implements OnInit, OnDestroy
 
     /**
      * Converts val from suggestion to value of directive
-     * @param val Val to be converted
+     * @param val - Val to be converted
      */
     private _toValue(val: any)
     {

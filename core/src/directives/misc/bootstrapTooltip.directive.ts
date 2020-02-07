@@ -39,6 +39,10 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
      * Gets or sets tooltip text
      */
     @Input("title")
+    public get text(): string
+    {
+        return this._text;
+    }
     public set text(value: string)
     {
         if(value == this._text)
@@ -52,10 +56,6 @@ export class BootstrapTooltipDirective implements AfterViewInit, OnDestroy
         {
             this._setValue();
         }
-    }
-    public get text(): string
-    {
-        return this._text;
     }
 
     /**

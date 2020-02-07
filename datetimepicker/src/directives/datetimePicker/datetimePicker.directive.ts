@@ -116,6 +116,15 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
     /**
      * Gets or sets value of datetime picker, any picker supported value
      */
+    public get value(): any
+    {
+        if(this._isBrowser)
+        {
+            return this.pickerObj.date() || null;
+        }
+
+        return this._value;
+    }
     public set value(val: any)
     {
         let maxDate = this.pickerObj.maxDate();
@@ -158,15 +167,6 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
         }
 
         this._firstSetValue = true;
-    }
-    public get value(): any
-    {
-        if(this._isBrowser)
-        {
-            return this.pickerObj.date() || null;
-        }
-
-        return this._value;
     }
 
     //######################### private properties #########################
@@ -297,7 +297,7 @@ export class DatetimePickerDirective implements OnInit, OnDestroy
 
     /**
      * Emits internal change of value based on mix/max date
-     * @param val Current value that is checked
+     * @param val - Current value that is checked
      */
     private _emitIfInternalIsSame(val: moment.Moment)
     {

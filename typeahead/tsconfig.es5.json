@@ -17,7 +17,7 @@
         "annotateForClosureCompiler": true,
         "strictMetadataEmit": false,
         "skipTemplateCodegen": true,
-        "flatModuleOutFile": "typeahead.js",
+        "flatModuleOutFile": "index.js",
         "flatModuleId": "@anglr/bootstrap/typeahead"
     }
 }

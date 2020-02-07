@@ -15,11 +15,6 @@
         "baseUrl": ".",
         "paths":
         {
-            "@anglr/bootstrap/core": ["./core"],
-            "@anglr/bootstrap/datetimepicker": ["./datetimepicker"],
-            "@anglr/bootstrap/select": ["./select"],
-            "@anglr/bootstrap/switch": ["./switch"],
-            "@anglr/bootstrap/typeahead": ["./typeahead"]
         },
         "lib":
         [
@@ -54,6 +49,8 @@
     ],
     "angularCompilerOptions":
     {
-        "fullTemplateTypeCheck": true
+        "fullTemplateTypeCheck": true,
+        "strictTemplates": true,
+        "enableIvy": false
     }
 }

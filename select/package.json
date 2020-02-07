@@ -1,8 +1,8 @@
 {
-    "name": "@anglr/bootstrap/select",
-    "module": "./dist/es5/select/select.js",
-    "esm2015": "./dist/es2015/select/select.js",
-    "esm5": "./dist/es5/select/select.js",
-    "typings": "./select.d.ts",
+    "name": "@anglr/bootstrap-select",
+    "module": "./dist/es5/select/index.js",
+    "esm2015": "./dist/es2015/select/index.js",
+    "esm5": "./dist/es5/select/index.js",
+    "typings": "./index.d.ts",
     "sideEffects": false
 }

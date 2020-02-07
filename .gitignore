@@ -2,8 +2,7 @@
 /dist
 /docs
 /tests
-/src/**/*.d.ts
-/src/**/*.json
+temp/
 /datetimepicker/**/*.d.ts
 /datetimepicker/**/*.json
 /core/**/*.d.ts
@@ -19,7 +18,9 @@
 /*.metadata.json
 
 package-lock.json
+tsdoc-metadata.json
 *.log
 *.bak
 *.orig
+*.map
 *~

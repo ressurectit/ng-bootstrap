@@ -75,6 +75,10 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
      * Gets or sets indication whether is dialog visible
      */
     @Input()
+    public get visible(): boolean
+    {
+        return this._visible;
+    }
     public set visible(visible: boolean)
     {
         if(visible == this._visible)
@@ -115,10 +119,6 @@ export class DialogComponent implements OnInit, AfterViewInit, OnDestroy
         }
         
         this._visible = visible;
-    }
-    public get visible(): boolean
-    {
-        return this._visible;
     }
     
     //######################### public properties - outputs #########################

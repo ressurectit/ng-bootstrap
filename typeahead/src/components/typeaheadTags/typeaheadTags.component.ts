@@ -181,13 +181,13 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
     /**
      * Typeahead directive instance
      */
-    @ViewChild(TypeaheadDirective, {static: false})
+    @ViewChild(TypeaheadDirective)
     public typeahead: TypeaheadDirective;
 
     /**
      * Custom template for tag content
      */
-    @ContentChild(TemplateRef, {static: false})
+    @ContentChild(TemplateRef)
     public tagContentTemplate: TemplateRef<any>;
 
     //######################### public properties #########################
@@ -195,6 +195,10 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
     /**
      * Gets or sets currently set value
      */
+    public get value(): any[]
+    {
+        return this._value;
+    }
     public set value(value: any[])
     {
         this._value = value || [];
@@ -202,10 +206,6 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
         this._value.forEach(itm => this._serializedValues.push(this.serializationFn(itm)));
         this._changeDetector.detectChanges();
-    }
-    public get value(): any[]
-    {
-        return this._value;
     }
     
     /**
@@ -272,7 +272,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
     /**
      * Process confirmation keys
-     * @param keyCode Code of key that was pressed
+     * @param keyCode - Code of key that was pressed
      */
     public handleKeyPress(keyCode: number)
     {
@@ -291,7 +291,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
     /**
      * Process key down
-     * @param event Event that occured
+     * @param event - Event that occured
      */
     public handleKeyDown(event: KeyboardEvent)
     {
@@ -303,7 +303,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
     /**
      * Removes tag at specified index
-     * @param index Index of tag to be removed
+     * @param index - Index of tag to be removed
      */
     public removeTag(index)
     {
@@ -325,7 +325,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
     /**
      * Gets displayed value for tag
-     * @param value Tag value that is going to be displayed 
+     * @param value - Tag value that is going to be displayed 
      */
     public getTagDisplayedValue(value)
     {
@@ -353,7 +353,7 @@ export class TypeaheadTagsComponent implements OnInit, OnDestroy, AfterViewInit
 
     /**
      * Adds value to control
-     * @param value Value to be added
+     * @param value - Value to be added
      */
     private _addValue(value)
     {

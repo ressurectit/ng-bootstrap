@@ -13,7 +13,6 @@ ngv.config.json
 
 *.ts
 !*.d.ts
-!/src/**/*.d.ts
 !/core/**/*.d.ts
 !/datetimepicker/**/*.d.ts
 !/switch/**/*.d.ts

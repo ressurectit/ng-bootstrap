@@ -49,7 +49,7 @@ export class ConfirmationDialogComponent
      * 
      * @internal
      */
-    @ViewChild('confirmButton', {static: false})
+    @ViewChild('confirmButton')
     public confirmButton: ElementRef;
 
     /**
@@ -57,13 +57,13 @@ export class ConfirmationDialogComponent
      * 
      * @internal
      */
-    @ViewChild('cancelButton', {static: false})
+    @ViewChild('cancelButton')
     public cancelButton: ElementRef;
 
     /**
      * Confirmation dialog body template
      */
-    @ContentChild(TemplateRef, {static: false})
+    @ContentChild(TemplateRef)
     public template: TemplateRef<any>;
 
     //######################### public properties - inputs #########################
@@ -128,6 +128,10 @@ export class ConfirmationDialogComponent
      * 
      * @internal
      */
+    public get visible(): boolean
+    {
+        return this._visible;
+    }
     public set visible(visible: boolean)
     {
         if(visible == this._visible)
@@ -143,10 +147,6 @@ export class ConfirmationDialogComponent
             this._data = null;
         }
     }
-    public get visible(): boolean
-    {
-        return this._visible;
-    }
     
     //######################### constructor #########################
     constructor(@Inject(PLATFORM_ID) private _platformId: Object)
@@ -158,7 +158,7 @@ export class ConfirmationDialogComponent
     
     /**
      * Shows confirmation dialog and stores data that are passed to confirmed event
-     * @param data
+     * @param data - Data that are passed through dialog
      */
     public showConfirmation(data: any)
     {

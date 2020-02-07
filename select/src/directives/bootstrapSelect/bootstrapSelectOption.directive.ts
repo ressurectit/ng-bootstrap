@@ -39,6 +39,10 @@ export class BootstrapSelectOptionDirective
      * Value property that is used for extracting unique value from object value
      */
     @Input()
+    public get valueProperty(): string
+    {
+        return this._valueProperty;
+    }
     public set valueProperty(val: string)
     {
         this._valueProperty = val;
@@ -53,15 +57,15 @@ export class BootstrapSelectOptionDirective
             this.optionValue = this.value[this.valueProperty];
         }
     }
-    public get valueProperty(): string
-    {
-        return this._valueProperty;
-    }
 
     /**
      * Gets or sets real value of option
      */
     @Input()
+    public get value(): any
+    {
+        return this._value;
+    }
     public set value(val: any)
     {
         this._value = val;
@@ -79,10 +83,6 @@ export class BootstrapSelectOptionDirective
 
             this.optionValue = val[this.valueProperty];
         }
-    }
-    public get value(): any
-    {
-        return this._value;
     }
     
     //######################### public properties #########################
@@ -109,7 +109,7 @@ export class BootstrapSelectOptionDirective
     
     /**
      * Compares provided value with current option value
-     * @param val Value to be compared
+     * @param val - Value to be compared
      * @returns boolean
      */
     public isEqual(val: any): boolean

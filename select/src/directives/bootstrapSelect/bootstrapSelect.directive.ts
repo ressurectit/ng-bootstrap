@@ -89,6 +89,10 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
      * Indication that current bootstrap select is disabled
      */
     @Input()
+    public get disabled(): boolean
+    {
+        return this._disabled;
+    }
     public set disabled(value: boolean)
     {
         this._disabled = value;
@@ -99,10 +103,6 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
         {
             this.selector.selectpicker("refresh");
         }
-    }
-    public get disabled(): boolean
-    {
-        return this._disabled;
     }
     
     //######################### public properties #########################
@@ -118,6 +118,10 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
     /**
      * Gets or sets value of select picker, any picker supported value
      */
+    public get value(): any
+    {
+        return this._value;
+    }
     public set value(val: any)
     {
         this._value = val;
@@ -144,10 +148,6 @@ export class BootstrapSelectDirective implements AfterViewChecked, AfterContentI
         }
 
         this.selector.selectpicker("val", val);
-    }
-    public get value(): any
-    {
-        return this._value;
     }
 
     /**

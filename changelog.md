@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 7.0.0
+
+- updated to latest stable *Angular* 9
+- added generating of API doc
+- removed `BootstrapModule`
+
 ## Version 6.1.2
 
  - fixed dateTimePickerControlValueAccessor value change

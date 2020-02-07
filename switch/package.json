@@ -1,8 +1,8 @@
 {
-    "name": "@anglr/bootstrap/switch",
-    "module": "./dist/es5/switch/switch.js",
-    "esm2015": "./dist/es2015/switch/switch.js",
-    "esm5": "./dist/es5/switch/switch.js",
-    "typings": "./switch.d.ts",
+    "name": "@anglr/bootstrap-switch",
+    "module": "./dist/es5/switch/index.js",
+    "esm2015": "./dist/es2015/switch/index.js",
+    "esm5": "./dist/es5/switch/index.js",
+    "typings": "./index.d.ts",
     "sideEffects": false
 }

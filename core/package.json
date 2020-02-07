@@ -1,8 +1,8 @@
 {
-    "name": "@anglr/bootstrap/core",
-    "module": "./dist/es5/core/core.js",
-    "esm2015": "./dist/es2015/core/core.js",
-    "esm5": "./dist/es5/core/core.js",
-    "typings": "./core.d.ts",
+    "name": "@anglr/bootstrap-core",
+    "module": "./dist/es5/core/index.js",
+    "esm2015": "./dist/es2015/core/index.js",
+    "esm5": "./dist/es5/core/index.js",
+    "typings": "./index.d.ts",
     "sideEffects": false
 }
